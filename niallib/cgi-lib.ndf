@@ -1,0 +1,797 @@
+# By: Chris Walmsley & Mike Jenkins
+  Created: Sep, 1996
+#   - The first part of this file is a direct port of the Perl routines
+#     described below to Nial. 
+# Changed: Nov 6, 1996
+#   - addition of template processing routines
+# Changes: Nov 19, 1996
+#   - Adjusted the file to use built in GetCommandLine routine.    
+#   - The NIALVAR tag used in processing templates, can now
+#     be more flexibly located.  There is a "delimiter" list
+#     that is used to determine the "end" of a NIALVAR name.
+#     This allows NIALVAR to occur almost anywhere.
+# Changes: Mar 10, 1997
+#   - Completed the debugging facilities for template processing.
+# Changes April 7, 1988
+#   - process_script added to streamline form processing.
+#   - flags added to beginning of form file to control debugging,
+#     logging, showing variables and profiling.
+# Changes March 4, 2001
+#   - better debugging
+#   - more error checking
+# 
+#
+# For more information on the Nial version contact:
+#       http://www.nial.com/
+#
+# Some of the ideas for the cgi-lib routines come from Perl
+# techniques originally developed by Stephen Brenner.
+# The following are the original credits:
+
+# > Perl Routines to Manipulate CGI input
+# > S.E.Brenner@bioc.cam.ac.uk
+# > $Id: cgi-lib.pl,v 2.12 1996/06/19 13:46:01 brenner Exp $
+# >
+# > Copyright (c) 1996 Steven E. Brenner  
+# > Unpublished work.
+# > Permission granted to use and modify this library so long as the
+# > copyright above is maintained, modifications are documented, and
+# > credit is given for any use of the library.
+# >
+# > Thanks are due to many people for reporting bugs and suggestions
+# > especially Meng Weng Wong, Maki Watanabe, Bo Frese Rasmussen,
+# > Andrew Dalke, Mark-Jason Dominus, Dave Dittrich, Jason Mathews
+# >
+# > For more information on the original Perl source, see:
+# >     http://www.bio.cam.ac.uk/cgi-lib/
+
+
+# routine to display an array in html. Used for debugging Nial forms.
+
+showarray IS OP Msg A {
+  writescreen link '<br> ' Msg ;
+  writescreen '<pre>';
+  write A;
+  writescreen '</pre>';
+}
+
+
+%-- Some forward declarations;
+CgiDie IS EXTERNAL OP;
+
+
+#utilitiy routines
+
+# The routine setup_globals sets a hidden global variable to indicate 
+# that this setup routine has already been called.
+# This prevents the accidental re-calling of
+# setup-globals a second time from clobbering things.
+# Also it sets up the global variable Keyvalarray to hold the key/values pairs,
+# which is managed as a pair of lists with the keys in the first
+# list and the values in the second. Note that the values part
+# is always a list of values.
+# The debugging variables are only initialized once upon loading this
+# file the first time.  
+
+Setup_globals IS {
+  NONLOCAL Cgi_lib_headerout Cgi_lib_topout Keyvalarray;
+  Svt := settrigger o;
+  Res := value ' CGI-GLOBALS-SET';
+  IF isfault Res THEN
+    Res := False;
+  ENDIF;
+  settrigger Svt;
+  IF not Res THEN
+    Cgi_lib_headerout := False; 
+    Cgi_lib_topout := False; 
+    Keyvalarray := [Null,Null];
+    assign ' CGI VARPAIRS' [Null,Null];
+    assign ' CGI-GLOBALS-SET' l;
+  ENDIF; 
+  Res }
+
+# routine to remove the first two items from the command line. We
+# assume the script is called with
+#     cginial <filenm> CGIargs
+# and the name of the executable will be the first item on the list.
+# This routine is somewhat complicated because of the fact that 
+# under different OSs, sometimes filenames are quoted strings with
+# space and other complications.
+
+StripNialArgs IS OP cmdline {
+  rr := null;
+  res := regexp '^([^" ]*|".*") (.+)$' cmdline;
+  if (first res) THEN
+    res := regexp  '([^" ]*|".*") (.+)' (res@3);
+    IF first res THEN
+      rr := res@3;
+    ENDIF;
+  ENDIF;
+  rr
+}
+
+
+
+
+# routine to convert CGI coded characters into their ASCII equivalent:
+#  eg HTML &3C;  is passed as %3C and is converted to < .
+
+fixcodes IS OP str {
+  hextodec IS OP str {
+    map := '0123456789ABCDEF';
+    str := toupper reverse str;
+    pos := num := 0;
+    FOR c WITH str DO
+      num := num + (((find c map)) * 
+          (IF pos = 0 THEN 1 ELSE (pos * 16) ENDIF));
+      pos := pos + 1;
+    ENDFOR;
+    string num
+  };
+  IF not empty str THEN
+    res := regexp '^([^%]*)%([A-Fa-f0-9][A-Fa-f0-9])(.*)$' str;
+    IF first res THEN
+      str := link res@2 (char tonumber hextodec res@3) (fixcodes res@4)
+    ENDIF;
+  ENDIF;
+  str
+}
+
+# routine to convert the chars <>'"& to codes for HTML output;
+
+fixspecialchars IS OP Lines {
+   fixline IS OP Line Ch Str {
+     Posns := Ch findall Line;
+     IF not empty Posns THEN
+       link (Line#Posns := (tally Posns reshape [Str]))
+     ELSE
+       Line
+     ENDIF };
+   Lines := EACH fixline pack Lines `< ['&lt;'];
+   Lines := EACH fixline pack Lines `> ['&gt;'];
+   Lines := EACH fixline pack Lines `' ['&#39;'];
+   Lines := EACH fixline pack Lines `" ['&#34;'];
+   Lines := EACH fixline pack Lines `& ['&amp;'];
+   Lines }
+
+
+
+
+# Generic routine to add values to our association list
+# The "Val" can be any Nial array.
+#
+# This routines will append the value to the list of values
+# if the "Key" is already in the list of keys.  Thus
+# The values associated with a key is really a list
+# of values.  
+
+addkeyval IS OP Key Val {
+  Key := toupper string Key;
+  Test Pos := Key seek first Keyvalarray;
+  IF Test THEN
+    IF Val notin Keyvalarray@@[1,Pos] THEN
+      Keyvalarray@@[1,Pos] := Keyvalarray@@[1,Pos] append Val;
+    ENDIF;
+  ELSE
+    Keyvalarray@0 := Keyvalarray@0 append Key;
+    Keyvalarray@1 := Keyvalarray@1 append [Val];
+  ENDIF;
+}
+
+# routines to get the values associated with a key
+#  getvals        Gets the list of values associated with the key
+#  getfirstval    Gets the first value only
+#  existval       Is the Key in the list at all?
+
+getfirstval IS OP Key {
+  Key := toupper string Key;
+  Test Pos  := Key seek Keyvalarray@0;
+  IF Test THEN
+    first Keyvalarray@@[1,Pos]
+  ELSE
+    Null
+  ENDIF
+}
+
+getvals IS OP Key {
+  Key := toupper string Key;
+  Test Pos  := Key seek Keyvalarray@0;
+  IF Test THEN
+    Res := Keyvalarray@@[1,Pos];
+    Res
+  ELSE
+    Null
+  ENDIF
+}
+
+existval IS OP Key {
+  Key := toupper string Key;
+  Key in keyvalarray@0
+}
+
+
+#routine to se the values for a key all at once.
+
+setvals IS OP Key Vals {
+  Key := toupper string Key;
+  Test Pos  := Key seek Keyvalarray@0;
+  IF Test THEN
+    Keyvalarray@@[1,Pos] := Vals;
+  ENDIF;
+}
+
+# routine to substitute all occurrences of character Old with New in Str
+# original Nial version was
+translate IS OP Old New Str{
+  Posns := Old findall Str;
+  New Posns placeall Str
+}
+
+# Faster Regular expression version.
+
+translate IS OP Old New Str{
+  string_translate Old New Str
+}
+
+# routine to parse the CGI arguments. This assumes blanks have been
+# replaced with a +, certain characters are represented by %hex codes,
+# and the list consists of <name>=<value> pairs separated by &s. The
+# parsed name value pairs are placed in the Keyval array.
+
+parseinput is op Instr {
+   % separate line into non empty chunks holding a name-val pair; 
+   Pieces := or (Instr EACHRIGHT match '&;') cut Instr except [Null];
+    FOR i WITH tell tally Pieces DO
+      % Convert plus to space;
+      Pieces@i := translate `+ `  Pieces@i ;
+      Pos := `= find Pieces@i;
+      Key Val := [Pos take,(Pos+1) drop] Pieces@i;
+      % Convert %XX from hex numbers to alphanumeric;
+      Key :=  fixcodes Key;
+      Val := fixcodes Val;
+      % Associate key and value;
+      addkeyval Key Val; 
+    ENDFOR; 
+}
+
+# routine to get the CGI input according to the method being used and
+# to parse it.
+
+ReadParseCGIinput IS {
+  % Get several useful env variables;
+  Type := getenv('CONTENT_TYPE');
+  Len  := getenv('CONTENT_LENGTH');
+  IF empty Len THEN Len := 0 ELSE Len := tonumber Len ENDIF;
+  Meth := getenv('REQUEST_METHOD');
+  %set up to process args;
+  Instr:= Null;
+  Cmdflag := o;
+  IF ((Meth = '') or (Meth = 'GET') or 
+      (Type = 'application/x-www-form-urlencoded')) THEN
+    % Read in text;
+    IF (Meth = '') THEN
+      Instr := getenv('QUERY_STRING');
+      Cmdflag := l;  
+    ELSEIF ((meth = 'GET') or (meth = 'HEAD')) THEN
+      Instr := getenv('QUERY_STRING');
+    ELSEIF (meth = 'POST') THEN
+        IF (Got := tally (Instr := readfile 0 len)) ~= Len THEN
+	  errflag := link ('Short Read: wanted ' (string Len)', got ' 
+            (string got));
+        ENDIF;
+    ELSE 
+      CgiDie (link 'cgi-lib.ndf: Unknown request method: ' (string Meth));
+    ENDIF;
+    %;
+    IF Cmdflag THEN 
+      Instr := Instr link (StripNialArgs GetCommandLine);
+    ENDIF;
+    parseinput Instr; 
+  ELSE 
+    CgiDie (link 'cgi-lib.ndf: Unknown Content-type:' getenv('CONTENT_TYPE'));
+  ENDIF;
+  keyvalarray@0 = Null
+}
+
+# PrintHeader
+# Returns the magic line which tells WWW that we're an HTML document
+
+PrintHeader IS {
+  NONLOCAL Cgi_lib_headerout;
+  IF not Cgi_lib_headerout  THEN
+    iterate writescreen ['Content-type: text/html','',''];
+    Cgi_lib_headerout := True;
+  ENDIF;
+}
+
+# HtmlTop
+# Emits the <head> of a document and the beginning of the body
+# with the title and a body <h1> header as specified by the parameter
+
+HtmlTop IS OP title {
+  NONLOCAL Cgi_lib_topout;
+  iterate writescreen ['<html>',
+    '<head>',
+    (link '<title>'title'</title>'),
+    '</head>',
+    '<BODY BGCOLOR="#FFFFFF">'
+  ];
+  Cgi_lib_topout := True;
+  IF not empty title THEN
+    writescreen (link '<h1>'title'</h1>')
+  ENDIF;
+}
+
+# HtmlBot
+# Emits the </body>, </html> codes for the bottom of every HTML page
+
+HtmlBot IS {
+  iterate writescreen  ['</body>','','</html>',''];
+}
+
+# DrawRuler
+  routine to emit a horizontal line. 
+
+DrawRuler is { writescreen '<hr>'; }
+
+# Center and EndCenter
+  routines to emit centering commands. 
+
+Center is { writescreen '<center>'; }
+
+EndCenter is { writescreen '</center>'; }
+
+# MethGet
+# Return true if this cgi call was using the GET request, false otherwise
+
+Methget IS {
+  getenv 'REQUEST_METHOD'  = 'GET'
+}
+
+
+# MethPost
+# Return true if this cgi call was using the POST request, false otherwise
+
+Methpost IS {
+  getenv 'REQUEST_METHOD'  = 'POST'
+}
+
+
+# MyBaseUrl
+# Returns the base URL to the script (i.e., no extra path or query string)
+
+Mybaseurl IS {
+ link 'http://'  
+      (getenv 'SERVER_NAME')    
+      (IF getenv'SERVER_PORT' != '80' THEN 
+           link ':' (getenv 'SERVER_PORT')  
+       ELSE
+           Null
+       ENDIF)
+      (getenv 'SCRIPT_NAME') }
+
+
+# MyFullUrl
+# Returns the full URL to the script (i.e., with extra path or query string)
+
+Myfullurl IS {
+    link 'http://'  
+         (getenv 'SERVER_NAME')   
+         (IF getenv 'SERVER_PORT' != '80' THEN 
+           link ':' (getenv 'SERVER_PORT')  
+         ELSE
+           Null
+         ENDIF)
+         (getenv 'PATH_INFO')
+         (IF not empty (Ss := getenv 'SCRIPT_NAME') THEN
+           Ss
+         ELSE
+           Null
+         ENDIF) }
+
+# define Newline (also called Linefeed) and Return characters
+
+NL IS char 10
+
+LF is char 10
+
+CR is char 13
+
+# Printvariables
+# Nicely formats variables set up by CGI argument. Use during debugging
+# of scripts and templates.
+
+Printvariables IS {
+  writescreen  (link NL '<dl compact>' NL);
+  for ind with tell tally keyvalarray@0 DO
+    FOR out WITH keyvalarray@@(1 ind) DO
+      writescreen ( link '<dt><b>' (string keyvalarray@@(0 ind)) 
+                         '</b>' NL ' <dd>:<i>' (string out) '</i>:<br>' NL);
+    ENDFOR;
+  ENDFOR;
+  writescreen ( link '</dl>' nl);
+}
+
+# Printenvvars
+# Nicely formats Environment variables.  
+
+
+
+Printenvvars IS {
+  writescreen  (link NL '<dl compact>' nl);
+  FOR Pr WITH getenv Null DO
+      writescreen ( link '<dt><b>' (first Pr)  
+                         '</b>' NL ' <dd>:<i>' (second Pr) '</i>:<br>' NL);
+  ENDFOR;
+  writescreen ( link '</dl>' NL);
+}
+
+# CgiError
+# Prints out an error message which which containes appropriate headers,
+# markup, etc.
+# Parameters:
+#  If no parameters, gives a generic error message
+#  Otherwise, the first parameter will be the title and the rest will 
+#  be given as different paragraphs of the body
+
+cgierror IS OP Msg{
+  IF empty Msg THEN
+    Name := Myfullurl;
+    Msg := (link 'Error: script ' Name ' encountered fatal error');
+  ENDIF;
+    Printheader;
+  ITERATE writescreen ['<pre>',Msg,'</pre>',''];
+}
+
+
+# CgiDie
+# Identical to CgiError, but also quits with the passed error message.
+
+
+cgidie IS OP Msg {
+  cgierror Msg;
+  Htmlbot;
+  Bye;
+}
+
+
+# routines to build the components of an HTML table from a list of list
+of strings, which may have been pulled from an ODBC table. 
+A maximum field size is given which is used to truncate any records
+that are longer than indicated.
+
+rowstohtml is OP Trows Maxfldsize {
+   tdtag is OP Str {
+     Str := string Str;
+     Str := Maxfldsize min tally Str take Str;
+     link '<TD>' Str '</TD>' 
+   };
+   trtag is OP Lstrs { 
+     link '<TR>' (link EACH tdtag Lstrs) (link '</TR>' CR) 
+   };
+   %-- Actually do the work;
+   EACH trtag Trows
+}
+
+
+listtohtml IS OP Array Bordersize {
+  link [link '<TABLE BORDER=' (string Bordersize) '>']
+  (rowstohtml Array 80)
+  [ '</TABLE>']
+}
+
+arraytohtml IS OP Array Bordersize {
+  link [link '<TABLE BORDER=' (string Bordersize) '>']
+  (rowstohtml (rows Array) 80)
+  [ '</TABLE>']
+}
+
+#---- persistent store support ------
+
+
+# routine to reset the Unique number counter stored
+  in the "/tmp" directory.
+
+reset_uniqueno IS OP Startno {
+    Fno := open (filepath '' 'tmp' 'uniquectr') "d;
+    IF isfault Fno THEN
+      Fno
+    ELSE
+      writearray Fno 0 Startno;
+      close Fno; 
+      Startno
+    ENDIF }
+
+# routine to get a unique number. This assumes only
+a single Nial process is running at a time.
+
+Uniqueno IS {
+    Fno := open (filepath '' 'tmp' 'uniquectr') "d;
+    IF isfault Fno THEN
+      Fno
+    ELSE
+      No := readarray Fno 0;
+      IF isfault No THEN
+        close Fno;
+        reset_uniqueno 0
+      ELSE
+        Newno := No + 1;
+        writearray Fno 0 Newno;
+        close Fno;
+        Newno 
+      ENDIF
+    ENDIF }
+
+# routine to delete a file using host.
+
+
+deletefile IS OP Filenm {
+   IF System = "UNIX THEN
+     Comm := link 'rm ' (string Filenm);
+   ELSEIF System = "Windows THEN
+     Comm := link 'del ' (string Filenm);
+   ELSE
+     Comm := '';
+     fault 'define deletefile for this system';
+   ENDIF;
+    IF System in "UNIX "Windows THEN 
+       Svt := settrigger o ; 
+       Fh := open Comm 'pr' ; 
+       IF not isfault Fh THEN 
+          Res := Null ; 
+          WHILE not isfault ( Line := readfile Fh ) DO 
+             Res := Res append Line ; 
+          ENDWHILE ; 
+          close Fh ; 
+          settrigger Svt ; 
+          Res 
+       ELSE 
+          settrigger Svt ; 
+          fault ( link '?Failed to open pipe to: ' Comm ) 
+       ENDIF 
+    ELSE 
+       fault link '?newhost: Pipes not available in System = ' ( 
+       string System ) ; 
+    ENDIF } 
+
+
+Storevars IS OP VarNameList Vals No {
+  Filenm := filepath '' 'tmp' ('CGI_PF_' link string No);
+  Fno := open Filenm 'd';
+  IF isfault Fno THEN
+     % add for debugging --- showarray 'in Storevars: Fno' Fno;
+  ELSE
+     %showarray 'in Storevars: (post pack VarNameList Vals)' (post pack VarNameList Vals);
+     writearray Fno 0 (VarNameList Vals);
+     close Fno;
+  ENDIF;
+}
+
+Loadvars IS OP No {
+  Filenm := filepath '' 'tmp' ('CGI_PF_' link string No);
+  Fno := open Filenm 'd';
+  Varpairs := readarray Fno 0;
+  close Fno;
+  IF isfault Varpairs THEN
+    fault 'Persistent store expired or is missing'
+  ELSE
+    Varpairs
+  ENDIF
+}
+
+
+# routines to support template processing. 
+
+
+# Routine to get a value to be used in a form.  The Varpairs list
+# is examined first. If it is not there then we evaluate it 
+# as a global variable.
+
+get_template_value IS OP Name Line {
+  Vas Vals := value ' CGI VARPAIRS';
+  Test Pos := toupper string Name seek Vas;
+  IF Test THEN
+    Pos pick Vals
+  ELSE
+    Old := settrigger o;
+    Res := value Name;
+    settrigger Old;
+    IF isfault Res THEN
+       showarray 'template error in Line' Line;
+      [link '*** ' (string Name) ' is undefined ***']
+    ELSE
+      Res
+    ENDIF
+  ENDIF
+}
+
+
+# This passes the desired variable overrides to a special hidden variable.
+# This routine should be used to prevent conflicts between global/local
+# variables used by the CGI-LIB and template routines.
+ 
+setvarpairs IS OP Vars Vals {
+  assign ' CGI VARPAIRS' [EACH (toupper string) Vars, Vals];
+}
+
+# routine to process a template file. First it expands NIALINCLUDEs
+# and then calls process_line on each line to replace NIALVARs
+# NOTE:  This routine should only be called after process_form_file
+#        has been called since the former sets the global variable 
+#        Template.
+
+process_template IS OP Template {
+  process_line IS OP Line {
+    IF and  (not empty Line) (not isfault Line) THEN
+      Delims := ' "''<>,?=';
+      Res := regexp (link '^(.*)NIALVAR:([^'delims']*)(['delims']*.*)$') Line;
+      IF first Res THEN
+        Nval := get_template_value Res@3 Line;
+        Line := link (process_line Res@2 ) (string Nval) Res@4;
+      ENDIF;
+    ENDIF;
+    Line
+  };
+  Newlines := Null;
+  FOR Line WITH Template DO
+    Res := regexp '^(.*)<NIALINCLUDE:([^>]*)>(.*)$' Line;
+    IF (first Res) THEN 
+      Field := get_template_value Res@3 Line;
+    %showarray 'Field' Field;
+      Newlines := Newlines link (link [Res@2] Field [Res@4]);
+    ELSE
+      Newlines := Newlines append Line;
+    ENDIF;
+  ENDFOR;
+  EACH process_line Newlines } 
+
+
+
+# A loaddefs simulator.  When supplied with a block of lines
+# this routine will produce output as if those line were
+# processed as part of a loaddefs operation.
+# It is assumed that the lines have had end of line separators
+# removed.  The lines that are all whitespace included in the
+# list of strings are used to separate the lines into groups.
+# It includes a routine to simulate the show() C routine used internally by
+# Nial to block scroll wide pictures. The first argument is the
+# desired width to split the picture at, and the second
+# argument should be an array value.
+
+SHOWWIDTH IS 70
+
+int_loaddefs IS OP Lines {
+  iswhitespace IS OP Line { and (charrep Line <= charrep ` ) };
+  dropblanks IS OP Str { l find not (Str match ` ) drop Str };
+  isremark IS OP Line {first dropblanks Line = `#};
+  show IS OP Swid A {
+    Prows := rows picture A;
+    Res := Null;
+    FOR I WITH tell (ceiling ((tally Prows@0) / Swid)) DO
+       IF tally Prows@0 >= Swid THEN
+         Res := link Res (EACHRIGHT take Swid Prows);
+       ELSE
+         Res := link Res Prows;
+       ENDIF;
+       Prows := EACHRIGHT drop Swid Prows;
+    ENDFOR;
+    Res
+  };
+  Groups := EACH iswhitespace Lines cut Lines;
+  Actions := EACH link Groups;
+  Groups := not EACH isremark Actions sublist Groups;
+  Res := [Null];
+  FOR Grp WITH Groups DO
+    Res := Res link fixspecialchars Grp;
+    Lres := execute link Grp;
+    IF Lres ~= ??noexpr THEN
+      Plines :=  show SHOWWIDTH Lres;
+      Res := link Res ['<b>'] Plines ['</b>'];
+    ENDIF;
+    Res := Res append ' ';
+  ENDFOR;
+  Res
+ }
+
+
+# routine to process a .nfm (nial form file)
+# This file is assumed to contain an html template delimited
+# by <html> and </html> markers. The remaining lines are code to be
+# executed.
+
+# The file is brought in as a string. On the assumption that line
+# breaks are marked by either LF or CR LF we filter out the CR,
+# break the lines at LFs and remove the LFs.
+
+     
+process_form_file IS OP Filenm {
+  %showarray 'Filenm' Filenm;
+  GlobalsDone := Setup_globals;
+  Form_debug := Form_log := Do_profile := False;
+  Form_profile_file := 'cgi_form.prf';
+  Len := filelength Filenm;
+  IF Len > 0 THEN
+    Str := readfield Filenm 0 Len;
+    Nfm_file := not (Str match CR) sublist Str;
+  ELSE
+    CGIDie link 'Nial form file: ' Filenm ' did not open.';
+  ENDIF;
+  %showarray 'Nfm_file' Nfm_file;
+  %-- USE <HTML> and </HTML> to separate it into 3 parts;
+  Res := regexp '^(.*)(<[hH][tT][mM][lL]>.*</[hH][tT][mM][lL]>)(.*)$' Nfm_file;
+  IF first Res THEN 
+    Hdr := LF match Res@2 cutall Res@2 EACHLEFT except LF;
+    Template := LF match Res@3 cutall Res@3 EACHLEFT except LF;
+    Nialcode := LF match Res@4 cutall Res@4 EACHLEFT except LF;
+    IF not GlobalsDone THEN
+      ReadParseCGIInput;
+      PrintHeader;
+    ENDIF;
+    IF toupper (9 take Hdr@4) = 'VARIABLES' THEN
+      PrintVariables;
+    ENDIF;
+    IF toupper (5 take Hdr@2) = 'DEBUG' THEN
+      form_debug := l;
+    ENDIF;
+    IF toupper (3 take Hdr@3) = 'LOG' THEN
+      form_log := l;
+    ENDIF;
+    IF toupper (7 take Hdr@5) = 'PROFILE' THEN
+      Do_profile := l; 
+      setprofile l ;
+    ENDIF;
+    Res := int_loaddefs Nialcode;
+    IF Do_profile THEN 
+      setprofile o ;
+      profile Form_profile_file;
+    ENDIF;
+    IF Form_debug  THEN
+       Form_execution := [ link 'Command Line:i |' Getcommandline'|'];
+       Form_execution := Form_execution append  '<pre>';
+       Form_execution := Form_execution link Res;
+       Form_execution := Form_execution append '</pre>';
+      ITERATE writescreen Form_execution;
+    ENDIF;
+    IF Form_log THEN
+      IF isfault value "Logfile THEN
+          Logfile := 'cgiexec.nlg';
+      ENDIF;
+      Cmdline := [ link 'Command Line:i |' Getcommandline'|'];
+      appendfile Logfile (Cmdline ' ' link Res);
+    ENDIF;
+    Template
+  ELSE
+    CGIDie link 'Nial form file: ' Filenm ' failed to parse into 3 sections.'
+  ENDIF
+}
+
+
+# routine to remove the first two items from the command line. We
+  assume the script is called with
+      cginial <filenm> CGIargs
+
+
+# do_form is called by a .ndf file to process a .nfm form. 
+
+do_form IS OPERATION Filenm {
+  IF isfault Filenm THEN
+    showarray 'invalid Filenm:' Filenm;
+  ELSE
+     Template := process_form_file Filenm;
+     Output := process_template Template;
+     % add for debugging ---  putfile '\tmp\a_html.htm' Output;
+     ITERATE writescreen Output;
+  ENDIF
+}
+
+process_form IS OPERATION Filenm Outnm {
+  IF isfault Filenm THEN
+    showarray 'invalid Filenm:' Filenm;
+  ELSE
+     Template := process_form_file Filenm;
+     Output := process_template Template;
+     putfile Outnm Output;
+  ENDIF
+}
+
+library "htmltools

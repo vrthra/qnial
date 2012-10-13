@@ -1,0 +1,107 @@
+
+	Automated Testing Methodology for Q'Nial Version 6.0
+
+This note documents the automated testing capability for
+Q'Nial. See testing.doc for a description of the complete test
+procedure.
+
+The file autotest (autotest.bat on MSDOS versions)
+runs the automated testing. The files *.out
+indicate errors that have been detected in the run, and *.log
+are the corresponding log files. 
+The following sections indicated the kind of testing that is done.
+
+1. Coverage tests.
+
+The file coverops.ndf contains a methodology for exercising most of the
+Nial operations with a wide variety of data inputs. The goal is to check
+for system failure due to unexpected values and to monitor for space
+usage. The program uses three files "uniops", "binops" and "pictops"
+to systematically run through all the operations.
+These correspond to:
+  uniops	unary data operations
+  binops	binary data operations
+  pictops	picture related operations
+Operations that are simple renamings of other ones are not included.
+
+The tests are run by the file autocov.ndf.
+There is a recovery mechanism so that if an operation fails and causes 
+a top level jump, the computation continues with the next case. 
+
+2. Semantic tests for data operations.
+
+This set of tests checks that the data operations perform as expected on
+some standard data examples. The purpose is to validate that the
+expected results occur.
+
+The driving routines are in the file "autoops.ndf". The specific
+tests are in "alltests". Output from the tests
+goes to a file "testops.out" if a test fails and a log of the tests is
+put into "testops.log" in order to keep track of what tests have actually
+been done. 
+
+3.  Data identity tests
+
+One of the features of array theory is that many universal identities hold.
+This test is designed to ensure that these expected semantics of Nial
+operations are achieved in the Q'Nial interpreter.
+
+This test is driven by the routine "testid" in file "testid.ndf" that 
+checks that a named identity holds for each item of each variable 
+in a list of variable names.
+The autoids.ndf file loads a sequence of identities and tests
+that check the universal identities plus a number of other properties
+such as that the pervasive data operations give consistent answers for
+numeric arguments of various types, that the general pervasive 
+identities hold for pervasive operations and that the implemented
+transformers match their formal definitions.
+
+The output of the tests is recorded in "ids.out" whenever a test fails.
+The output is logged into "ids.log" to capture what tests have actually
+been run.
+
+The test is run by the file autoids.ndf.
+
+4. Testing the interpreter evaluation mechanisms.
+
+In this test the the main part of the evaluator is checked by ensuring that predicate
+expressions that test a case for each path through the parser and evaluator
+are satisfied and that the two canonical identities:
+       canonical canonical a = canonical a
+       execute a = execute canonical a
+hold, where 
+       canonical is link descan deparse parse scan
+
+The following test sets are used:
+  atcases	juxtaposition table, strands, list notation
+  control	sequencing, selection, loops, exit
+  scope		blocks, comments, opforms, trforms
+  assign	assignment
+  indexing	left and right side indexing nnotations
+  quoted	program quotes using the !() construct
+  defines	definitions, defn sequences, externals
+  recurs	recursive constructs and difficult recursions from the past
+  constant	tests that constants are handled corectly
+  limits	tests of limits of lexical tokens
+  pclimits      tests of limits of PC arithmetic
+
+This test is run by the file autoeval.ndf.
+
+5. Tests of the picturing code
+
+Models of the diagram and sketch operations that work in
+both decor and nodecor modes have been constructed. These can be run 
+against generated data. These make use of the Nial paste operation.
+The cases where the results do not match are logged in pic.out.
+
+This test is run by the file autopic.ndf.
+
+6. Randomized testing
+
+A testing program that randomly generates arrays and tests them on 
+many of the identities. 
+
+This test is run using the file autorand.ndf.
+
+The entire test suite is run by typing autotest at the prompt.
+

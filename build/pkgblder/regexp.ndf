@@ -1,0 +1,168 @@
+# REGULAR EXPRESSION OPERATIONS added at the Nial level
+
+
+# The following operations are provided at the C level:
+#
+#    _regexp_m  <regular expr> <string> <options>
+#
+#       <regular expr>: described below
+#       <string>      : the string to be acted upon
+#       <options>     : can be the character 'i' which 
+#                       means to ignore case    
+#
+#       RESULT        : the result is 0 if no match was found,
+#                       or a positive integer to indicate that
+#                       a match was found and how many sub expression
+#                       were found
+#
+#    _regexp_s  <regular expr> <replacement str> <string> <options>
+#
+#       <regular expr>   : described below
+#       <replacement str>: a string to replace the entire <regular expression>.
+#                          The string may also include $0-$9.  $0 will be
+#                          replaced with the entire source string, and $1-$9
+#                          will be replaced by the bracketed subexpression
+#                          matched by <regular expr>
+#       <string>         : the string to be acted upon
+#       <options>        : can be the character 'i' (which 
+#                          means to ignore case) or 'g' (which means
+#                          to replace more than on occurence (recursively!)
+#                          or both 'i' and 'g'
+#       RESULT           : The resulting string (possible the same as the original
+#                          if not match) is returned.
+#
+#    _regexp_tr <char list> <repl char list> <string> <options>
+#
+#      <char list>    : list of characters to look for in the <String>
+#      <repl list>    : list of characters to replace the characters in
+#                       <char list>.  IF <repl list> longer than one character
+#                       then there is a one-one mapping between the <char list>
+#                       and the <repl list>.  If the <repl list> is shorter
+#                       than the <char list>, the last character of the <repl list>
+#                       is replicated as necessary.
+#      <string>       : source string
+#      <options>      : 'd' = delete option. If <char list> is longer that
+#                             <repl list> by n chars, then any occurence
+#                             of the last n char of <char list> in <string>
+#                             will be deleted from <string>, instead of being mapped
+#                             to the last character of <repl list>.
+#                       'c' = compliment (NOT in <string>), only last character
+#                             from <repl list> is used in this case.
+#                       's' = squeeze multiple char from <char list> into
+#                             single replacement char from <repl list> 
+#      RESULT         : The result is the modified string.
+#
+#    _regexp_getsub <index>
+#
+
+
+regexp_match IS OP args {
+  pattern := first args;
+  str := second args;
+  if tally args = 3 then
+    opts := third args;
+  else
+    opts := ' ';
+  endif;
+  rc :=  _regexp_m pattern str opts; 
+  IF and (not isfault rc) (rc >= 0) THEN
+    l
+  ELSE
+    o
+  ENDIF
+}
+
+
+regexp_substitute IS OP args {
+  pattern := first args;
+  repl := second args;
+  str := third args;
+  if tally args = 4 then
+    opts := 3 pick args;
+  else
+    opts := ' ';
+  endif;
+  _regexp_s pattern repl str opts
+}
+
+
+string_translate IS OP args {
+  pattern := first args;
+  repl := second args;
+  str := third args;
+  if tally args = 4 then
+    opts := args@3;
+  else
+    opts := ' ';
+  endif;
+  _regexp_tr pattern repl str opts
+}
+
+
+
+
+
+regexp IS OP pattern str {
+  IF empty str THEN
+    rc := -1;
+  ELSE
+    rc := _regexp_m pattern str ' ';
+  ENDIF;
+  IF rc = -1 THEN
+    [o,NULL]
+  ELSE
+    res := [l];
+    IF rc >= 1 THEN
+      FOR i WITH tell rc DO
+        res := res append (_regexp_getsub i);
+      ENDFOR;
+    ENDIF;
+    res
+  ENDIF
+}
+
+
+
+# This is an iterative version of the split routine
+
+string_split IS OP args {
+  pattern := first args;
+  str := second args;
+  limit := -1;
+  IF tally args = 3 THEN
+    limit := (third args);
+  ENDIF;
+  IF empty pattern THEN
+    each solitary str
+  ELSE
+    done := o;
+    result := null;
+    REPEAT
+    IF (limit <= -1) and ((empty str) or (isfault str)) THEN
+      done := l;
+    ELSE
+      res := regexp  (link '^([' pattern '])(.*)') str;
+      if (first res) and ((limit >= 2) or (limit <= -1)) THEN
+        limit := limit - 1;
+        str := res@3;
+        result := result append null;
+      ELSE
+        res := regexp  (link '([^' pattern ']*)([' pattern '])(.*)')  str;
+        if (first res) and ((limit >= 2) or (limit <= -1)) THEN
+          limit := limit - 1;
+          str := res@4;
+          result := result append res@2;
+        ELSE
+          result := result append str;
+          str := null;
+          done := true;
+        ENDIF
+      ENDIF
+    ENDIF
+    UNTIL (done)
+    ENDREPEAT;
+  ENDIF;
+  result
+}
+
+

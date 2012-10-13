@@ -1,0 +1,23 @@
+#
+Operation: mapbox A
+           mapfile A
+File: mapbox.ndf
+
+# Mapbox is an operation to substitute + - window symbols for internal frame
+  characters in an array.  It is used when converting a file that has the
+  frame characters and they are not printable on your printer.
+
+mapbox IS OPERATION A {
+   Nums := charrep A ;
+   Pos := ( Nums >= 179 and ( Nums <= 218 ) ) sublist grid A ;
+   A # Pos := Pos choose Nums - 179 choose
+   '|++++++++++++++++-++++++++++++++++++++++' }
+
+
+# Mapfile uses mapbox to map all the box characters in a file.
+
+
+mapfile IS OP Fnm {
+  Lines := getfile Fnm;
+  Newlines := EACH mapbox Lines;
+  putfile Fnm Newlines; }

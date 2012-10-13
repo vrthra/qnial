@@ -1,0 +1,32 @@
+testid is op Idstr _Args_ {
+  NONLOCAL spacelost;
+  IDstr := string Idstr;
+  freespace := 345678+ 25;
+  write link 'starting ' Idstr ;
+  write status;
+  freespace := first status;
+  FOR Arg WITH _Args_ DO
+     { % put in a block so that locals will be freed;
+     write link 'trying ' Idstr ' on ' Arg;
+     Val gets execute Arg;
+     if isfault Val THEN
+        write link Arg ' evaluated to ' (string Val);
+     else
+        R gets (parse scan Idstr) EACHRIGHT apply execute Arg ;
+        if not isboolean and R then 
+            write link Idstr ' faulted with ' (display and R);
+        elseif and R then 
+            write link Idstr ' succeeded on ' Arg;
+        else
+            write link Idstr ' failed on ' Arg;
+            write R;
+            appendfile "ids.out (link Idstr ' applied to ' Arg);
+            appendfile "ids.out (picture R);
+        endif;
+     endif;
+     write link 'completed ' Arg;
+     };
+  ENDFOR;
+  write status;
+  spacelost := spacelost + (freespace - first status max 0);
+}

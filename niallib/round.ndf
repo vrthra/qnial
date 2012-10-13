@@ -1,0 +1,15 @@
+#
+Operation: round Number
+File: round.ndf
+
+# This operation rounds a real to an integer.
+
+round IS OPERATION A {
+   floor ( A + .5 ) }
+
+# Examples:
+
+#        round 3.6
+4
+         round -1.66667
+-2

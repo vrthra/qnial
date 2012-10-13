@@ -1,0 +1,72 @@
+
+		Testing Methodology for Q'Nial Version 6.0
+
+This note documents the process of testing a version of Q'Nial prior
+to its release. It is intended for the system development team to use, but
+is useful for any group porting the software to other systems.
+
+The testing is broken into three classes:
+
+a) automated testing
+
+b) testing supported by Nial definition files
+
+c) hand testing of features
+
+Automated Testing.
+
+A systematic test suite to check the interpreter on the
+array theoretic behaviour of the operations and data has been
+constructed. It is described in more detail in the file fasttest.doc.
+Most of the files in the testing directory support this test suite.
+If new functionality is added to Q'Nial in the future, these tests
+should be updated accordingly.
+
+The tests should be run with a system generated with the Nial switch
+DEBUG turned on first to ensure no serious blow ups occur. The test
+should then be repeated with a tuned version as intended for shipping.
+We have found that some optimizers on some compilers have occasionally
+created bugs that cause the tests to fail. If this is encountered reduce
+the degree of optimization requested.
+
+The DEBUG version can also be used to test for space leakage. Instead of
+running the tests all at once, run each test separately, loadding the
+testing code prior to starting the individual tests. (This requires
+some editting of the files into temporary ones to split the work properly.)
+If temporary arrays are not being freed, information on them will be displayed
+when the system returns to top level. If the available space has decreased 
+during the running of the tests by more than a few words, it means temporary 
+arrays have been given a nonzero reference count and not freed.  Ideally,
+there should be no known space leaks in a version about to be shipped.
+
+Supported Testing
+
+The following files support some feature testing. Each file contains some
+instructions on how to use it at the top of the file.
+	FILE				PURPOSE
+	chopheap.ndf	check the behaviour of Q'Nial with heap fragmentation
+	filechk.ndf	check the semantics of direct and sequential files
+	parserr.ndf	attempt to produce all parse errors
+	parse2.ndf	check difficult parser problems
+	stack.ndf	check the depth of recursive calls and behaviour when
+			the C stack fails
+	tracetest.ndf   test the tracing mechanism.
+	wsfull.ndf	force the workspace full mechanism to ensure it recovers
+
+
+Hand Testing
+
+There are a number of features of Nial that are difficult to check under program
+control. These require a systematic methodology of ensuring that the observed
+behaviour is as expected. The file notebook gives a list of the tests that
+should be tried and an explanation of what is expected. The reference manual is
+often used as the guide for what the behaviour should be. 
+This list is intended to be as complete as possible. It includes many tests
+that showed errant behaviour in earlier versions.
+The tests state explicitly whether the testing should be done with the
+debug version, the production version or both.
+
+
+It is recommended that a copy of notebook.doc be printed and be used as 
+a record of the testing that has been done for a particular version.
+

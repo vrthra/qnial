@@ -1,0 +1,39 @@
+#
+Operation: newhost Command
+File: newhost.ndf
+
+# This is an alternative for the operation host.
+# The difference is that the
+# results of the command are returned as an array of
+# strings.  It uses pipes and is efficient.
+# Pipes are not implemented in the Windows GUI version.
+
+# The result is a list of the lines produced by the command.
+  If you wish them to be display use:
+       ITERATE write newhost Cmd
+
+
+newhost IS OPERATION Comm { 
+    IF System = "Windows THEN 
+       host ( link ( getenv 'COMSPEC' ) ' /c ' Comm ' > \tmp\cmd_res' ) ; 
+       getfile '\tmp\cmd_res' 
+    ELSEIF System = "UNIX THEN 
+       Svt := settrigger o ; 
+       Fh := open Comm 'pr' ; 
+       IF not isfault Fh THEN 
+          Res := Null ; 
+          WHILE not isfault ( Line := readfile Fh ) DO 
+             Res := Res append Line ; 
+          ENDWHILE ; 
+          close Fh ; 
+          settrigger Svt ; 
+          Res
+       ELSE 
+          settrigger Svt ; 
+          fault ( link '?Failed to open pipe to: ' Comm ) 
+       ENDIF 
+    ELSE 
+       fault link '?newhost: Pipes not available in System = ' ( 
+       string System ) ; 
+    ENDIF } 
+

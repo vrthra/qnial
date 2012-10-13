@@ -1,0 +1,38 @@
+# The example shows how Latent and recover can be used in conjunction.
+
+# Normally Latent would start the application which might be interrupted by
+a fault, a user interrupt or some system limitation. In this example
+we use Toplevel as a programmed interruption.
+
+# The operation recover is used to either restart the application by calling
+Latent or to terminate execution based on the user's decision. The Msg argument
+gives the reason that the interruption has occurred in case different
+recovery startegies are needed depending on the cause.
+
+# If a workspace has been saved with a Latent expression, it is executed
+automatically when the workspace is loaded.
+
+# An application can be run by using either
+    nial <wsname>
+or
+    runnial <wsname>
+
+# In the first case, control returns to top level if the user does not wish
+to restart the application. In the latter, the session terminates.
+
+
+Latent is { 
+     writescreen 'running aplication';
+     % replace the following line with the call to start the application;
+     Toplevel; 
+}
+
+recover is Op Msg { 
+    Answer := readscreen 'Restart application (Y/N)';
+    IF not empty Answer THEN
+      IF first Answer in 'yY' THEN
+        Latent;
+      ENDIF;
+    ENDIF; 
+     % place Bye here if you wish to exit and you are using nial.exe;
+}

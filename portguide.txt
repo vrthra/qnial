@@ -1,0 +1,161 @@
+
+              A Guide for Porting the Q'Nial Interpreter 
+
+                                Version 6.3
+
+                            Michael Jenkins
+                            Nial Systems Limited
+                           
+            
+
+
+                                        ABSTRACT
+
+          This document provides information on how to port Q'Nial to a new
+          programming environment that supports standard C and C++ code. 
+          
+
+          1. Introduction
+
+          The Q'Nial interpreter is a highly portable program written in the
+          programming language C.  The code is parameterized using the macro
+          definition mechanism in C to allow easy tailoring to various host
+          systems.  Also, a switching convention is used to include or
+          exclude various system specific C code.
+
+          This document provides a guide to building a Q'Nial binary program
+          for a UNIX-based host computer. It assumes the availability of a
+          complete C compiler with standard libraries.
+
+          A Q'Nial binary program is built from a description of three
+          aspects of the host environment, the target computer, the operating
+          system, and the special features to be supported.
+
+          The description of the computer includes such information as the
+          word size and the floating point number range.  The operating
+          system description includes such features as input/output and
+          signal handling.
+
+          In most cases, a standard Q'Nial binary can be made for a 32 bit
+          system by carrying out the process described in Section 2.
+          If all goes well, it can be done in less than an hour.  If problems
+          arise, they can usually be resolved within a day.  
+
+
+          2. Building Q'Nial on the Target Computer
+
+          To "port" Q'Nial to a target computer, three computer-specific
+          files must be prepared.  The first, called "XXXspecs.h" (eg.
+          sunspecs.h, win32sp.h), describes computer-operating system
+          specific characteristics.  The second, called "switches.h", sets
+          the switches which include or exclude parts of the source file
+          during compilation, and has a statement to include the specific
+          "XXXspecs.h" file.  The third, called "XXXif.c" provides the
+          interface between Q'Nial and the operating system.  A version
+          called "unixif.c" is provided which works for all UNIX ports
+          to date. FOr a non-Unix system, a new XXXif.c file will need to
+          be created.
+
+          If the XXXspecs.h and switches.h files are already prepared, and
+          the target machine has a standard UNIX "make" command, then the
+          procedure is straightforward.  If these files do not exist, they
+          are best made by copying and modifying one for another computer.
+
+          Step 1.  Loading the Files.
+
+          The Q'Nial source files must be moved to the target machine.
+          Download the Unix source from www.nial.com and unzip it into
+          a work area.            
+
+          The files are organized into the directories:
+
+             v6testing - testing operations for verifying the port
+             build - the source code for Q'Nial
+             niallib - the library of example Nial code
+
+          The directory "build" contains all the source files needed to do
+          the port. Besides the changes described in Section 2 above, you need to 
+          modify the makefile to invoke the correct compiler and to define the 
+          SYSNAME that you have set up in switches.h. Several sample makefiles 
+          are provided in the directory.
+
+	  The Q'Nial binary produced in the port will be placed in the
+          binaries directory at the end of the porting process.  A copy of
+          this direcotry should be returned to Nial Systems Limited for distribution
+          to other users after the port has been successfully completed.
+
+          The directory "v6testing" includes a suite of testing programs to
+          assist in validating that the port went correctly.
+
+          Step 2.  Creating the version specific files.
+
+          Before any of the source files are edited, they should be copied
+          to a directory, say "backupNialsrc".  If all changes are performed in
+          the build directory, the backup directory can be saved as a master to "diff" 
+          against. 
+
+          An XXXspecs.h file appropriate to the target computer must be
+          created.  The simplest way to do this is to edit the "sunspecs.h"
+          file appropriately.  Comments are provided in it giving the
+          information required.  Specification files have been prepared
+          for many of the systems to which Q'Nial has been ported.
+
+          A block of "define"'s must be inserted in "switches.h" to set the
+          desired switches for the the target computer.   This block should
+          be within an "#ifdef" block guarded by the version name.  If such
+          a block does not exist for the system, then the block for the SUN
+          should be copied and edited.  The "#include" for the XXXspecs.h
+          file is placed at the end of this block.
+
+          The file "version.h" is edited in order to change the version
+          name appropriately.
+
+          If the target is a non-UNIX system then a new XXXif.c file must be created.
+          Make a copy of unixif.c and revise the code appropriately. Most of the
+          code in unixif.c is supported by standard C libraries that are UNIX 
+          independent. Modify if.h to include the new XXXif.c file you have created. 
+          See sections 8 and 9 in the QNial design document for more information.
+
+          The file "makefile" is edited to define the switches needed to bring
+          in the block of code placed in switches.h. Also, you need to name the
+          C and C++ compilers that will be invoked.
+
+
+          Step 3.  Compiling and Linking Q'Nial.
+
+          Compilation and linking of all files is done by running "make".
+          "Make" compiles all the *.c *.cpp files and produces the module "nial". 
+ 
+          Enter:
+             make
+
+          When the "make" has completed, execute nial (by typing nial <Enter>)
+          and test it by typing
+
+             tell 3 4
+
+          A table of addresses for a 3 by 4 array should be displayed.  To
+          leave Q'Nial, type:
+
+             Bye
+
+          Step 4.  Testing the port.
+
+          The directory "v6testing" is designed to carry out a significant test
+          of Q'Nial.  The file "notebook" provides instructions on
+          how to initiate many of the tests and is intended as a place to
+          record any unusual behavior.
+         
+
+
+          Step 5.  Completing the installation.
+
+          In this step you copy the nial executable to the directory "binaries"
+          and place both binaries and niallib into a nialroot directory. For example,
+          
+          mkdir /usr/local/lib/nialroot
+          
+          Then copy the binaries and niallib directories to it.
+
+
+          

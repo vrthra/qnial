@@ -1,0 +1,23 @@
+UNIXCONS
+# switches for the Unix Console Version
+PUBLIC -
+CONSOLE -
+
+# Standard Features 
+CORE coredefs.ndf
+SYSTEM -
+V6AT -
+COMMAND -
+TIMEHOOK -
+DIRECTIO -
+#REGEXP regexp.ndf
+PROFILE -
+
+# new features
+POPEN -
+GETENV -
+CMDLINE -
+
+#extended features
+#PROCESS_CONTROL -
+#SOCKETS sockets.ndf

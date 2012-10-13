@@ -1,0 +1,275 @@
+CORE R + isum b_plus
+CORE R * iproduct b_times
+CORE R and iand b_and
+CORE R max imax b_max
+CORE R min imin b_min
+CORE R or ior b_or
+CORE C plus iplus b_plus
+CORE C - iminus b_minus
+CORE C times itimes b_times
+CORE C / idivide b_divide
+CORE C power ipower b_power
+CORE C quotient iquotient b_quotient
+CORE C mod imod b_mod
+CORE C < ilt b_lt
+CORE C <= ilte b_lte
+CORE C > igt b_gt
+CORE C >= igte b_gte
+CORE C match imatch b_match
+CORE C mate imate b_mate
+CORE B fuse ifuse b_fuse
+CORE B raise iraise b_raise
+CORE B except iexcept b_except
+CORE B append iappend b_append
+CORE B choose ichoose b_choose
+CORE B findall ifindall b_findall
+CORE B hitch ihitch b_hitch
+CORE B pick ipick b_pick
+CORE B reach ireach b_reach
+CORE B reshape ireshape b_reshape
+CORE B seek iseek b_seek
+CORE B find ifind b_find
+CORE B in iin b_in
+CORE B sublist isublist b_sublist
+CORE B take itake b_take
+CORE B drop idrop b_drop
+CORE P type itype
+CORE P floor ifloor
+CORE P char ichar
+CORE P charrep icharrep
+CORE P abs iabs
+CORE P ceiling iceiling
+CORE P reciprocal ireciprocal
+CORE P cos icos
+CORE P sin isin
+CORE P tan itan
+CORE P arcsin iarcsin
+CORE P arccos iarccos
+CORE P arctan iarctan
+CORE P sinh isinh
+CORE P cosh icosh
+CORE P tanh itanh
+CORE P exp iexp
+CORE P ln iln
+CORE P log ilog
+CORE P sqrt isqrt
+CORE P not inot
+CORE P opposite iopposite
+CORE U second isecond
+CORE U third ithird
+CORE U grid igrid
+CORE U cull icull
+CORE U atomic iatomic
+CORE U pack ipack
+CORE U seed iseed
+CORE U diverse idiverse
+CORE U transpose itranspose
+CORE U valence ivalence
+CORE U pass ipass
+CORE U pair ipair
+CORE U simple isimple
+CORE U = iequal
+CORE U ~= iunequal
+CORE U cart icart
+CORE U first ifirst
+CORE U link ilink
+CORE U list ilist
+CORE U rest irest
+CORE U reverse ireverse
+CORE U shape ishape
+CORE U solitary isolitary
+CORE U tally itally
+CORE U tell itell
+CORE U isboolean iisboolean
+CORE U isinteger iisinteger
+CORE U isreal iisreal
+CORE U ischar iischar
+CORE U isphrase iisphrase
+CORE U isfault iisfault
+CORE U isstring iisstring
+CORE U numeric inumeric
+CORE U allbools iallbools
+CORE U allints iallints
+CORE U allreals iallreals
+CORE U allchars iallchars
+CORE U allnumeric iallnumeric
+CORE U empty iempty
+CORE U content icontent
+CORE U single isingle
+CORE U place iplace 
+CORE U deepplace ideepplace 
+CORE U placeall iplaceall 
+CORE U random irandom
+CORE U solve isolve
+CORE U inverse iinverse
+CORE U innerproduct iinnerproduct
+CORE U mix imix
+CORE E null inull
+CORE E true itrue
+CORE E false ifalse
+CORE T iterate iiterate
+CORE T eachboth ieachboth
+CORE T converse iconverse
+CORE T sort isort
+CORE T grade igrade
+CORE T eachall ieachall
+CORE T fold ifold
+CORE T fork ifork
+CORE T leaf ileaf
+CORE T outer iouter
+CORE T team iteam
+CORE T twig itwig
+CORE T rank irank
+CORE T reduce ireduce
+CORE T each ieach
+CORE T eachleft ieachleft
+CORE T eachright ieachright
+CORE U gage igage
+V6AT B cutall icutall b_cutall
+V6AT B cut icut b_cut
+V6AT B up iup b_up
+V6AT T accumulate iaccumulate
+V6AT T bykey ibykey
+V6AT T recur irecur
+V6AT T across iacross
+V6AT T down idown
+V4AT U flip iflip
+V4AT U trim itrim
+V4AT U void ivoid
+SYSTEM U setformat isetformat
+SYSTEM U read  iread
+SYSTEM U execute iexecute
+SYSTEM U erase ierase
+SYSTEM U eval ieval
+SYSTEM U fault ifault
+SYSTEM U setwidth isetwidth
+SYSTEM U display idisplay
+SYSTEM U value ivalue
+SYSTEM U toupper itoupper
+SYSTEM U tolower itolower
+SYSTEM U parse iparse
+SYSTEM U scan iscan
+SYSTEM U getfile igetfile
+SYSTEM U putfile iputfile
+SYSTEM U appendfile iappendfile
+SYSTEM U settrigger isettrigger
+SYSTEM U setmessages isetmessages
+SYSTEM U deparse ideparse
+SYSTEM U descan idescan
+SYSTEM U getdef igetdef
+SYSTEM U see isee
+SYSTEM U setdeftrace isetdeftrace
+SYSTEM U updateall iupdateall
+SYSTEM U deepupdate ideepupdate
+SYSTEM U paste ipaste
+SYSTEM U setlogname isetlogname
+SYSTEM U setprompt isetprompt
+SYSTEM U update iupdate
+SYSTEM U positions ipositions
+SYSTEM U tonumber itonumber
+SYSTEM U close iclose
+SYSTEM U open iopen
+SYSTEM U phrase iphrase
+SYSTEM U readfile ireadfile
+SYSTEM U readscreen ireadscreen
+SYSTEM E readchar ireadchar
+SYSTEM U set iset
+SYSTEM U sketch isketch
+SYSTEM U string istring
+SYSTEM U write iwrite
+SYSTEM U writechars iwritechars
+SYSTEM U writefile iwritefile
+SYSTEM U writescreen iwritescreen
+SYSTEM U picture ipicture
+SYSTEM U no_op ino_op
+SYSTEM U diagram idiagram
+SYSTEM U symbols isymbols
+SYSTEM U assign iassign 
+SYSTEM U apply iapply 
+SYSTEM U getname igetname
+SYSTEM U load iload
+SYSTEM U save isave
+SYSTEM U loaddefs iloaddefs
+SYSTEM U toraw itoraw
+SYSTEM U fromraw ifromraw
+SYSTEM E version iversion
+SYSTEM E copyright icopyright
+SYSTEM E system isystem
+SYSTEM E atversion iatversion
+SYSTEM E toplevel itoplevel
+SYSTEM E nialroot inialroot
+SYSTEM E continue icontinue
+SYSTEM E filestatus ifilestatus
+SYSTEM E restart irestart
+SYSTEM E status istatus
+SYSTEM E break ibreak
+SYSTEM E callstack icallstack
+SYSTEM E watchlist iwatchlist
+SYSTEM E breaklist ibreaklist
+SYSTEM U breakin ibreakin
+SYSTEM U watch iwatch
+SYSTEM U seeusercalls iseeusercalls
+SYSTEM U seeprimcalls iseeprimcalls
+SYSTEM E clearws iclearws
+SYSTEM E bye ibye
+SYSTEM E no_expr ino_expr
+SYSTEM T no_tr ino_tr
+SYSTEM U sleep isleep
+DEBUG U wa iwa
+DEBUG U wan iwan
+DEBUG U wbn iwbn
+DEBUG U dumpatomtbl idumpatomtbl
+DEBUG E usedspace iusedspace
+DEBUG E showfl ishowfl
+DEBUG E dumpstack idumpstack
+DEBUG U dumpheap idumpheap
+DEBUG U setdebugmessages isetdebugmessages
+DIRECTIO U filetally ifiletally
+DIRECTIO U readrecord ireadrecord
+DIRECTIO U writerecord iwriterecord
+DIRECTIO U eraserecord ieraserecord
+DIRECTIO U setinterrupts isetinterrupts
+DIRECTIO U readfield ireadfield
+DIRECTIO U writefield iwritefield
+DIRECTIO U filelength ifilelength
+DIRECTIO U readarray ireadarray
+DIRECTIO U writearray iwritearray
+COMMAND U edit iedit
+COMMAND U host ihost
+TIMEHOOK E time itime
+TIMEHOOK E timestamp itimestamp
+PROFILE U profile iprofile
+PROFILE U setprofile isetprofile
+PROFILE E clearprofile iclearprofile
+PROFILE E profiletree iprofiletree
+PROFILE E profiletable iprofiletable
+CALLDLL U registerdllfun iregisterdllfun
+CALLDLL U calldllfun icalldllfun
+CALLDLL U _dlllist iDllList
+REGEXP U _regexp_m iregexp_m
+REGEXP U _regexp_tr iregexp_tr
+REGEXP U _regexp_s iregexp_s
+REGEXP U _regexp_getsub iregexp_getsub
+ODBC U SQLFetchNext iSQLFetchNext
+GETENV U GetEnv iGetEnv
+CMDLINE E GetCommandLine iGetCommandLine
+URLGETFILE U urlgetfile iurlgetfile
+UNIXOPS U newhost inewhost
+UNIXOPS U leavenial ileavenial
+UNIXOPS U getenv igetenv
+UNIXOPS U putenv iputenv
+SOCKETS U socket_listen isocket_listen
+SOCKETS U socket_accept isocket_accept
+SOCKETS U socket_close isocket_close
+SOCKETS U socket_receive isocket_receive
+SOCKETS U socket_peek isocket_peek
+SOCKETS U socket_send isocket_send
+SOCKETS U socket_connect isocket_connect
+SOCKETS U socket_bind isocket_bind
+PROCESS_CONTROL E process_fork iprocess_fork
+PROCESS_CONTROL U authenticate iauthenticate
+PROCESS_CONTROL U crypt icrypt
+PROCESS_CONTROL E getpid igetpid
+PROCESS_CONTROL E getgid igetgid
+PROCESS_CONTROL U setpgid isetpgid
+PROCESS_CONTROL U killpg ikillpg

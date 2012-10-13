@@ -1,0 +1,299 @@
+Progress on source cleanup.
+
+Have completed sweeps of
+  absmach.c, absmach.h  (removed references to NC_EndBuffer in here)
+
+  arith.c, arith.h
+
+  atops.c, ops.h (In doing atops.c I created systemops.c and also moved stuff to compare.c and insel.c.)
+
+  basics.c basics.h are generated. CHECKED
+
+  blders.c, blders.h (consider fixing the hack on defn seqs. See combinedaction. Requires a new builder and
+                      a change to eval.c. DEFERRED)
+
+  compare.c, compare.h
+
+  coreif.c, coreif.h. coreif_p.h (started on these. redoing comments. Consider redoing newline handling in 
+                                  NC_Write on a second sweep of the code. Modified NC_EndBuffer to use NC_Write
+                                  as suggested. Confirm that this is always valid.
+                                  Why is boxchars_on in InstallWindowsSettings and not in Update???? IGNORED
+                                  In process_latent_defs I still allow for a *.nfm file. I don't think this is
+                                  correct. code REMOVED
+                                  I removed omitted code from NC_readstr() that removed newlines.
+
+                                  Noticed inconsistency between use of the core routines for input versus
+                                  output. In fileio.c the input routines are called directly, but the output 
+                                  routine is called through win32if.c. Consider making this consistent. DEFERRED.
+
+                                  completed sweep of .c file.
+
+                                  looked at coreif.h . Need to remove WIN16 stuff. FINISHED. 
+
+                                  completed sweep of coreif_p.h)
+
+defs.ndf and defstbl.h are generated. CHECKED
+
+look at diag.c diag.h when checking DEBUG switch.DEBUG switch works. Did not review diag.c diag.h.
+
+
+look at dll.c dll.h after the rest of the files are swept. DONE
+
+check need for dllnames.h. DELETED after revisining coreif_p.h.
+
+  eval.c eval_fun.c eval.h (see two notes preceded by MAJ: in eval.c. Also look at applyprimitive(f) to
+   see if the error described there is now gone. DEFERRED)
+
+faults.h  review it later.
+
+  fileio.c fileio.h (consider cleanup of nprintf flags to remove _LOG. Lots of references. DEFERRED)
+
+getters.h review with parse.c
+
+
+if.h   review with *if.h files
+
+  insel.c insel.h (remove the MAJ comment in choose(a,addrs) after I have confirmed the code
+                                  is not needed. Do testing with DEBUG built to confirm. DEFERRED )
+
+lexical.h  review with scan.c
+
+
+  lib_main.c lib_main.h (marked HTMLfmsw for cleanup, joined code with goto in nialboot, consider 
+                                      removal of "initial" directory. Will have to modify documentation.
+                                      If left in I have to add it to the V63 structure. DEFERRED, put in
+                                      the initial directory in QNialV63 and copied defs.ndf to it.).
+
+
+  linalg.c (Changed use of Checksignal in innerproduct so it is within the outer loop for the matrix-matrix case)
+
+
+linuxspecs.h  review all the specs files in one go. DEFERRED
+
+  logicops.c logicops.h 
+
+started sweep of main_stu.c (get windows.h via the sysincl stuff, consider putting a loop in myReadString to allow
+     arbitrarily long input. consider moving CMDLINE stuff to if.c files from here and userops.c)
+
+
+PROBLEM:  seeing strange behaviour with Ctrl -C causing an exit.
+I did not see this when I was testing matrix mult. It seems to happen when the control C is at top level 
+with nothing running.
+I checked to see if this behaviour is happening on the Unix version. It is not.
+
+For the Windows console version I have the choice of accepting the Ctrl C behaviour or removing the EOF test in myReadString.
+If I do the latter, then nial.exe does not terminate when used as a filter under the Windows command interface.
+I have decided to leave the code as it is for now. I will revisit this issue when I am confirming the code 
+for the Unix versions. DEFERRED
+
+completed sweep of main_Stu.c (consider removing switch USERBREAKFLAG in code. It is defined for all versions. Need
+                        to provide an empty checksignal version if SIGNALS not defined. DEFERRED)
+
+  mainlp.c mainlp.h  (removed switches on hist about RUNTIMEONLY. Should undef HISTORY in switches.h if
+            RUNTIMEONLY or CGINIAL are in play.  DONE
+            noticed usehistory is set by default in the core interface and cannot be changed. 
+            variable could be eliminated. DONE)
+
+   messages.c messages.h   no changes other than formatting comments
+
+   nialdll.h   defer until we build the nde.dll DEFERRED
+
+completed sweep of parse.c parse.h (increased STATELIMIT and LISTSIZE in qniallim.h)
+
+
+completed sweep of picture.c picture.h (could add more comments. DEFERRED)
+
+
+pkgswchs.h - generated by procpkg.ndf - no changes necessary
+
+process.c - not in use in Windows versions. review when I am building a Unix version.
+
+
+completed sweep of profile.c profile.h (Sometime I removed an "else" in traverse_tree and commented that it
+   should be checked. Need to confirm this. Look for MAJ in text. DEFERRED.
+   For some reason 3 of the prototype declarations are ignored and 8 warning messages are given by Borland C.)
+
+
+protos.h - something to do with Nial DLL. figure out later or discard DEFERRED
+
+
+qniallim.h - has been checked at end of sweep
+
+completed sweep of regular expression code
+   re_class.cpp (includes system code directly. could integrate with sysincl.h when it is cleaned up DONE)
+   The reg expr codes consists of files:
+     re_class.cpp re_class.h re_supp.h
+     re_core.c re_core.h re_magic.h
+     re_main.cpp re_main.h
+     regexp.c
+   I have not modified the reg exp code greatly since it is largely open source stuff that we adopted.
+
+reserved.h resnms.h   no changes
+
+roles.h no change
+
+completed sweep of scan.c scan.h lexical.h states.h tokens.h 
+  (scanner table still supports complex numbers. I should remove these. DEFERRED )
+
+sockets.c - not in use in Windows versions. review when I am building a Unix version.
+
+sql.h sqlext.h sqltypes.h - look at these when I do userops.c left as is.
+
+switches.h - review at end of sweep DONE
+
+completed sweep of symtab.c symtab.h
+  (documentation was wrong in places, fixed. looked at addsymtab design. left as is)
+
+
+sysincl.h defer until completed first pass of code. DONE
+
+
+completed sweep of systemops.c (redundant handling of debug messages, Should get rid of either "debug" or
+   "debug_messages_on". Consider after first pass. DEFERRED. removed setheight. setwidth had no effect in
+    console version, why? FIxed it by removing a change in  main_stu loop on console version to set 
+    height and width from Windows info each time around.)
+
+completed sweep of trig.c trig .h
+
+completed sweep of trs.c trs.h (The treatment of faults is different in EACH and EACHLEFT. 
+  The code in the latter was removed from the former because it broke identities. Check that this makes sense.
+  I think it is all right. The binary transformers need it.)
+  ( decided to remove the unused radix real sort code since it is for float not double.)
+  (added code to speed up grade when the arg is sorted, and checked that it is used.)
+  (fixed a problem with RANK when N=0, which forced me to implement mix as a primitive in atops.)
+
+
+defer sweep of unixif.c. Do it with win32if.c DEFERRED.
+
+
+completed sweep of userops.c
+  (deferred work on CMDLINE and GETENV until integration of if versions) FINISHED review.
+
+
+completed sweep of utils.c
+
+vb_error.c - consider discarding this. or save with nde.dll stuff DEFERRED
+
+
+completed sweep of version.h 
+
+defer win32if.c until done wsmanage.c  FINISHED review
+
+wininet.h  - provided by microsoft but not in BC5 directory
+
+wininet.lib - provided by microsoft but not in BC5 directory
+
+winsp.h renamed to win32sp.h
+
+completed sweep of wsmanage.c wsmanage.h (moved the edit, host and time primitives to systemops.c)
+
+
+started looking at merger of win32if and unixif. There is a lot of common code, but also a lot
+of specialized code. It may be more work than I want to take on. However, it would make ports to other
+OS's easier to clarify this code.  Should integrate the specs routines as well. DEFERRED
+
+Work still to do:
+
+- examine switches.h and omit stuff no longer in play.  DONE
+
+- redo sysincl.h consolidating as much as possible. Force all system includes to use it.  DONE
+
+- clean up dll.c and dll.h  DONE
+
+- decide what to do with Command line getenv etc. Decided to leave them in userops.c  DONE
+
+- integrate if.c and specs.h files  DEFERRED
+
+- review the things mentioned during first sweep. DONE. I have indicated decisions made or deferred in the text.
+
+
+
+NEXT STEPS
+
+1. Build winnial.exe using this code. DONE  
+
+1a. CHeck that initial directory is being used. DONE
+The initial directory is found locally in nial.exe since no nialroot is preset.
+WIth winnial.exe it should also find one at Nialroot. Needs to be checked. CHECKED
+
+1b. Check that Nialroot is working as described for both Console and GUI versions.
+Note that the same clearws.nws file cannot be used by both versions since the 
+system variable differs for each. CHANGED see below.
+
+The help file for Nialroot is OUT OF DATE. Source file CHANGED
+
+DESIGN ISSUE: Should we have different workspaces for the various WIndows versions (Console, GUI, RUnTime and CGI) or one that will work for all. What are the constraints that the latter choice imposes?
+I have looked this over and have determined that all Windows versions can share the same workspace. This required changes to version.h and coredefs.ndf.  DONE
+
+2. Run the v6testing code on the console version. It FAILS. FIX the problem(s).
+I have run autotest. The *.out files point at the errors.
+
+The failure was in the sort routine with the GRADE flag. For an already sorted list I hade to
+"gage" the shape before doing the tell. This required making igage part of the V6 code.
+I have added it as a primitive in V6.
+I cleaned up the v6testing directory.
+Ran with DEBUG on and discovered two failures which are now fixed.
+
+Added code to auto tests to track space usage.
+
+Seeing some lossage in autorand, but it appears to be in the randtest function itself since it does not
+depend on which ids are tested.
+The space loss is failrly small and I have decided to not pursue this further.
+Testing is DONE.
+
+
+3. Move the code to Queen's and build SUN and LINUX console versions.  DEFERRED.
+
+4. Run v6testing on the unix versions. DEFERRED
+
+4.1 Decide on library position and content and then fix Library code in coredefs.ndf appropriately.
+
+I have decided to hardwire niallib into directory c:\QNialv63 in the library code rather than make it dependent
+on the Nialroot setting. This is to avoid conflicts between the console and GUI versions under Windows.
+I have left the assumption that the niallib is at Nialroot under UNIX.
+The only shipped library directory will be "niallib", but I will make others available on the website.
+DONE.
+
+4.1.5 Still need to confirm the contents of Niallib. Make sure each library file loads cleanly and works as 
+described.
+Started this process. Discovered that cgi-lib in library is very old.
+I'm working my way through it to make it consistent.
+FINISHED cgi-lib.
+Worked on filelist.ndf and newhost.ndf.
+newhost cannot work in the GUI version as coded since pipes are not implemented.
+Consider using code like that in filelist to have a version of newhost that works.
+
+The decision to name all Windows version with System="Windows causes conflict in these two library routines.
+REVIEW the decision. Could add a SYstemtype with "CONSOLE and "GUI as choices. Decided to use above idea
+where the Windows versions of newhost and filelist do not need pipes.
+
+COMPLETED the niallib review.
+
+4.1.6 Noticed that the HISTORY mechanism is broken in the GUI version (only). Investigate.
+I've put in write statements that show that the global "lasteval" is being clobbered. I can't see where or how
+this is happening. DEFER for now but FIX before release.
+The problem was caused by my attempt to remove the usehistory switch that seemed redundant. However, when
+I put the code back in, the problem went away. So the problem is FIXED.
+
+4.3 Make sure the help files correspond to the current state of Q'Nial.
+Check primitive lists as well as features.  DONE
+
+4.4 Rebuild the help file for Windows after finalizing its content. DONE
+
+*4.5 Update versions in QNIALV63 directory that is shipped. Make sure that the correct defs.ndf and clearws.nws files are picked up.
+- Clean up the directory. DONE
+- Make sure it can be loadded cleanly on a system without a copy of winnial. DEFER until in Kingston
+- Make sure it works as expected
+
+4.6 Get Manuals into a Word format that works on recent versions of Word.  (Left out manuals on CGI-Nial and the Nial Data Engine.) DONE
+
+5. Finish documentation in QNdesign document. DONE
+
+6. Move the code and documentation to the website.
+
+7. Announce it.
+
+
+
+
+

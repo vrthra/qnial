@@ -1,0 +1,427 @@
+# Nial routines that provide both a high and low level interface to ODBC
+  This interface is MS Windows specific.
+
+# The high level routines are:
+StartupDB Desc - connect to the DB given by descriptor Desc
+CleanupDB      - disconnect from the active DB and free objects
+ODBCgetdata Query - use the SQL Query to get data froom the open DB
+ODBCexecute SQLStmt - execute an insert or update SQLStmt on the open DB
+ODBCstoredata Dbdesc Tblnm Colnms Data - an operation to insert rows
+           of data into an unopened DB
+
+# the high level routines use global variables ODBC_Connected Henv Hdbc for communication
+to avoid having too many parameters being passed around.
+
+
+# lowlevel ODBC interface stuff
+
+
+# General Return Codes;
+
+SQL_INVALID_HANDLE  IS -1;
+SQL_ERROR  IS -1;
+SQL_SUCCESS  IS 0;
+SQL_SUCCESS_WITH_INFO  IS 1;
+SQL_NO_DATA_FOUND  IS 100;
+
+
+# Data length descriptor flags;
+
+SQL_NTS  IS -3;
+SQL_NULL_DATA  IS -1;
+SQL_DATA_AT_EXEC  IS -2;
+
+# ODBC types;
+
+SQL_CHAR  IS 1;
+SQL_NUMERIC  IS 2;
+SQL_DECIMAL  IS 3;
+SQL_INTEGER  IS 4;
+SQL_SMALLINT  IS 5;
+SQL_FLOAT  IS 6;
+SQL_REAL  IS 7;
+SQL_DOUBLE  IS 8;
+SQL_VARCHAR  IS 12;
+
+SQL_DATE  IS 9;
+SQL_TIME  IS 10;
+SQL_TIMESTAMP  IS 11;
+SQL_LONGVARCHAR  IS -1;
+SQL_BINARY  IS -2;
+SQL_VARBINARY  IS -3;
+SQL_LONGVARBINARY  IS -4;
+SQL_BIGINT  IS -5;
+SQL_TINYINT  IS -6;
+SQL_BIT  IS -7;
+
+# list of pairs giving SQL types and names.
+
+SQL_TYPE_LIST  IS ((SQL_CHAR 'SQL_CHAR') (SQL_NUMERIC 'SQL_NUMERIC')
+                 (SQL_DECIMAL 'SQL_DECIMAL') (SQL_INTEGER 'SQL_INTEGER')
+                 (SQL_SMALLINT 'SQL_SMALLINT') (SQL_FLOAT 'SQL_FLOAT')
+                 (SQL_REAL 'SQL_REAL') (SQL_DOUBLE 'SQL_DOUBLE')
+                 (SQL_VARCHAR 'SQL_VARCHAR') (SQL_DATE 'SQL_DATE')
+                 (SQL_TIME 'SQL_TIME') (SQL_TIMESTAMP 'SQL_TIMESTAMP')
+                 (SQL_LONGVARCHAR 'SQL_LONGVARCHAR') (SQL_BINARY 'SQL_BINARY')
+                 (SQL_VARBINARY 'SQL_VARBINARY') (SQL_LONGVARBINARY 'SQL_LONGVARBINARY')
+                 (SQL_BIGINT 'SQL_BIGINT') (SQL_TINYINT 'SQL_TINYINT')
+                 (SQL_BIT 'SQL_BIT'))
+
+# routine to convert SQL type to its name.
+
+SQLTypeIDToString IS OP id { 
+  pos := (find id (each first SQL_TYPE_LIST)) ;
+  IF pos = tally SQL_TYPE_LIST THEN
+    link 'SQL_UNKNOWN_TYPE_' (string id)
+  ELSE
+    pos pick (each second SQL_TYPE_LIST)
+  ENDIF
+}
+
+# Conversion Flags;
+
+SQL_C_CHAR  IS 1;
+SQL_C_LONG  IS 4;
+SQL_C_SHORT  IS 5;
+SQL_C_FLOAT  IS 7;
+SQL_C_DOUBLE  IS 8;
+SQL_C_DEFAULT  IS 99;
+
+# Hstmt Free Flags;
+
+SQL_DROP  IS 1;
+SQL_CLOSE  IS 0;
+SQL_UNBIND  IS 2;
+SQL_RESET_PARAMS  IS 3;
+
+# Transact flags;
+
+SQL_COMMIT  IS 0;
+SQL_ROLLBACK  IS 1;
+
+
+# setup interface to Windows ODBC library provided in DLL odbc32.dll.
+  Each routine is registered and a cover function of the same name provided
+  to call the dll routine. This registers all the library routines needed
+  for current Nial applications.
+
+
+registerdllfun "SQLAllocEnv "SQLAllocEnv 'odbc32.dll' "SHORT ["*LPDWORD];
+
+SQLAllocEnv IS {
+  calldllfun "SQLAllocEnv -5
+}
+
+
+registerdllfun "SQLAllocConnect "SQLAllocConnect 'odbc32.dll' "SHORT ["INT,"*LPDWORD];
+
+SQLAllocConnect IS OP henv {
+  calldllfun "SQLAllocConnect henv -6
+}
+
+
+registerdllfun "SQLConnect "SQLConnect 'odbc32.dll' "SHORT ["INT,"LPSTR,"SWORD,"LPSTR,"SWORD,"LPSTR,"SWORD]
+
+SQLConnect IS OP hdbc server uid pwd {
+ calldllfun "SQLConnect hdbc server SQL_NTS uid SQL_NTS pwd SQL_NTS 
+}
+
+
+registerdllfun "SQLAllocStmt "SQLAllocStmt 'odbc32.dll' "SHORT ["INT,"*LPDWORD]
+
+SQLAllocStmt IS OP hdbc {
+  calldllfun "SQLAllocStmt hdbc -7
+}
+
+
+registerdllfun "SQLExecDirect "SQLExecDirect 'odbc32.dll' "SHORT ["INT,"LPSTR,"SWORD]
+
+SQLExecDirect IS OP hstmt query_string {
+  calldllfun "SQLExecDirect hstmt query_string SQL_NTS
+}
+
+
+registerdllfun "SQLNumResultCols "SQLNumResultCols 'odbc32.dll' "SHORT ["INT,"*&SWORD]
+
+SQLNumResultCols IS OP hstmt {
+  calldllfun "SQLNumResultCols hstmt -8
+}
+
+
+registerdllfun "SQLRowCount "SQLRowCount 'odbc32.dll' "SHORT ["INT,"*&SDWORD]
+
+SQLRowCount IS OP hstmt {
+  calldllfun "SQLRowCount hstmt -9
+}
+
+
+registerdllfun "SQLTransact "SQLTransact 'odbc32.dll' "SHORT ["INT, "INT, "UWORD];
+
+SQLTransact IS OP henv hdbc flag { calldllfun "SQLTransact henv hdbc flag }
+
+
+registerdllfun "SQLFreeStmt "SQLFreeStmt 'odbc32.dll' "SHORT ["INT,"UWORD];
+
+SQLFreeStmt IS OP hstmt flag {calldllfun "SQLFreeStmt hstmt flag }
+
+
+registerdllfun "SQLDisconnect "SQLDisconnect 'odbc32.dll' "SHORT ["INT];
+
+SQLDisconnect IS OP hdbc {calldllfun "SQLDisconnect hdbc}
+
+
+registerdllfun  "SQLFreeConnect "SQLFreeConnect 'odbc32.dll' "SHORT ["INT];
+
+SQLFreeConnect IS OP hdbc {calldllfun "SQLFreeConnect hdbc}
+
+
+registerdllfun  "SQLFreeEnv "SQLFreeEnv 'odbc32.dll' "SHORT ["INT];
+
+SQLFreeEnv IS OP henv {calldllfun "SQLFreeEnv henv}
+
+
+registerdllfun  "SQLDescribeCol "SQLDescribeCol 'odbc32.dll' "SHORT ["INT,
+     "UWORD, "*LPSTR,"SWORD, "*&SWORD,"*&SWORD, "*&UDWORD,"*&SWORD, "*&SWORD];
+
+SQLDescribeCol IS OP hstmt index namebuf {
+  calldllfun "SQLDescribeCol hstmt index namebuf ((tally namebuf) - 1) -10 -11 -12 -13 -14
+}
+
+
+registerdllfun  "SQLBindCol "SQLBindCol 'odbc32.dll' "SHORT ["INT,"UWORD,"SWORD,
+                                                         "LPSTR,"SDWORD,"*&SDWORD];
+
+SQLBindCol IS OP hstmt index type collen buffer {
+  rc collen := calldllfun "SQLBindCol hstmt index type buffer  collen -15;
+  rc collen
+}
+
+
+registerdllfun  "SQLFetch "SQLFetch 'odbc32.dll' "SHORT ["INT];
+
+SQLFetch IS OP hstmt {
+  calldllfun "SQLFetch hstmt
+}
+
+
+registerdllfun  "SQLGetData "SQLGetData 'odbc32.dll' "SHORT ["INT,"UWORD,"SWORD,"*LPSTR,"SDWORD,"*&SDWORD];
+
+SQLGetData IS OP hstmt index type buffer {
+  calldllfun "SQLGetData hstmt index type buffer ((tally buffer)- 1) -20
+}
+
+
+registerdllfun "SQLError "SQLError 'odbc32.dll' "SHORT ["INT,"INT,"INT,"*LPSTR,"*&SDWORD,"*LPSTR,"SWORD,"*&SWORD];
+
+SQLError IS OP henv hdbc hstmt {
+  calldllfun "SQLError henv hdbc hstmt (256 reshape ' ') -22 (256 reshape ' ') 255 -23
+}
+
+
+# Options for SQLDriverConnect flag; 
+
+SQL_DRIVER_NOPROMPT :=            0;
+SQL_DRIVER_COMPLETE :=            1;
+SQL_DRIVER_PROMPT   :=            2;
+SQL_DRIVER_COMPLETE_REQUIRED :=   3;
+
+registerdllfun "SQLDriverConnect "SQLDriverConnect 'odbc32.dll' "SHORT ["INT,"HWND,"LPSTR,"SWORD,"*LPSTR,"SWORD,"*&SWORD,"SWORD];
+
+SQLDriverConnect IS OP hdbc hwnd constr flag {
+  calldllfun "SQLDriverConnect hdbc hwnd constr (tally constr) (256 reshape ' ') 256 -24 flag
+}
+
+# Variable to allow printout during testing phase
+
+Testing IS EXTERNAL VARIABLE
+
+# library utility routines - used newquotefix and display1
+
+library "utils
+
+# routine to open the database described by Desc.
+
+# Global variables used to communicate between ODBC operations. These
+are set initially here so they can be tested during calls.
+
+ODBC_Connected := False;
+
+Henv IS EXTERNAL VARIABLE;
+Hdbc IS EXTERNAL VARIABLE;
+
+# routine to open the database described by Desc, consisting of a driver string and
+  a database name string. If the driver string points to a DSN then the database name is blank.
+  If a database is already open a fault is returned. THis enforces the rule that only
+  one database at a time can be open. We need this since the global variables Henv and Hdbc
+  would get corrupted if a second db was opened.
+  If the open is attempted, the routine returns True if successful and False otherwise.
+
+StartupDB is op Desc {
+NONLOCAL henv hdbc ODBC_Connected;
+  IF ODBC_Connected THEN
+    fault '?ODBC interface in use at Startup attempt'
+  ELSE
+    Driver Dbname := [first,second] Desc;
+    rc henv := SQLAllocEnv;
+    rc hdbc := SQLAllocConnect henv;
+    rc := first SQLDriverConnect hdbc 0 
+      (link Driver ' ' Dbname) SQL_DRIVER_NOPROMPT;
+    IF and  (rc ~= SQL_SUCCESS) (rc ~= SQL_SUCCESS_WITH_INFO) THEN
+      res := SQLError henv hdbc 0;
+      res := link each string res;
+      IF Testing THEN
+         writescreen link res 'Could not open database with rc = ' ( string rc);
+      ENDIF;
+      ODBC_Connected := False
+    ELSE
+      ODBC_Connected := True
+    ENDIF
+  ENDIF
+}
+
+# routine to close the current open db
+  It returns a fault if there is no open database.
+  Otherwise it returns False.
+
+CleanupDB is {
+  NONLOCAL ODBC_Connected;
+  IF ODBC_Connected THEN
+    SQLDisconnect hdbc;
+    SQLFreeConnect hdbc;
+    SQLFreeEnv henv; 
+    ODBC_Connected := False
+  ELSE
+    fault '?ODBC interface not in use at Cleanup attempt'
+  ENDIF
+}
+
+
+# routine to get data from the open database based on an SQL query.
+
+ODBCgetdata is op Query {
+  IF ODBC_Connected THEN
+    %  write link 'entering ODBCget with query: ' Query;
+    rc hstmt := SQLAllocStmt hdbc;
+    rc := SQLExecDirect hstmt Query;
+    IF or  (rc = SQL_SUCCESS) (rc = SQL_SUCCESS_WITH_INFO) THEN
+      % writescreen display (SQLRowCount hstmt -55);
+      IF (second (SQLRowCount hstmt -55)) > 0 THEN
+        % -- If more than zero rows changed, then commit the change;
+        SQLTransact hdbc SQL_COMMIT;
+        Results := null;
+        Cnames := null;
+        CTypes := null;
+      ELSE
+        columns := second (SQLNumResultCols hstmt);
+        cnames := columns reshape [' '];
+        ctypes := columns reshape [ -1 ];
+        FOR i WITH count columns DO
+          rc cname cnlen ctype clen scale nullable := 
+            SQLDescribeCol hstmt i (32 reshape ' ');
+          cnames@(i - 1) := cname;
+          ctypes@(i - 1) := ctype;
+        ENDFOR;
+        Results := SQLFetchNext hstmt 0 (1 2 3);
+      ENDIF;
+    ELSE
+      res := SQLError henv hdbc hstmt;
+      res := link each string res;
+      IF Testing THEN
+        writescreen link res 'Failure to execute query: ' Query '  rc = ' ( string rc);
+      ENDIF;
+      fault 'Failure to execute query'
+    ENDIF;
+    SQLFreestmt hstmt SQL_DROP;
+    Cnames Ctypes Results
+  ELSE
+    fault '?ODBC interface not in use at getdata attempt'
+  ENDIF
+}
+
+# routine to execute an SQL update or insert statement for a table
+    in the open database.
+
+ODBCexecute is op SQLStmt {
+  IF ODBC_Connected THEN
+    %write link 'entering ODBCexecute with SQLStmt: ' SQLStmt;
+    rc hstmt := SQLAllocStmt hdbc;
+    rc := SQLExecDirect hstmt SQLStmt;
+    IF or  (rc = SQL_SUCCESS) (rc = SQL_SUCCESS_WITH_INFO) THEN
+      SQLTransact henv hdbc SQL_COMMIT;
+    ELSE
+      res := SQLError henv hdbc hstmt;
+      res := link each string res;
+      IF Testing THEN
+         writescreen link res 'Failure to execute SQLStmt: ' SQLStmt '   rc = ' ( string rc);
+      ENDIF;
+      fault 'Failure to execute SQLStmt'
+    ENDIF;
+    SQLFreestmt hstmt SQL_DROP;
+  ELSE
+    fault '?ODBC interface not in use at execute attempt'
+  ENDIF
+}
+
+# display routine for strings and numbers only. Used in ODBCstoredata.
+
+display1 IS OP Obj {
+   IF isstring Obj or ischar Obj THEN
+      (newquotefix Obj)
+   ELSE
+      (string Obj)
+   ENDIF }
+
+# routine to insert tabular data into an ODBC Database. 
+We assume the data is a list of rows for the table with 
+as many items as their are column names given. 
+This version assumes the database is not open.
+
+ODBCstoredata is OP Dbdesc Tblnm Colnms Data {
+   StartupDB Dbdesc;
+   Colnmpart := link '(' (front link ( EACH string Colnms 
+      EACHLEFT link ',' )) ')'; 
+   FOR Row WITH Data DO
+     IF tally Row = tally Colnms THEN
+       Valpart := -2 drop link (EACH display1 Row EACHLEFT link ', ');
+       SQLstmt := link 'INSERT INTO ' (string Tblnm) Colnmpart
+          ' VALUES (' Valpart ');';
+       ODBCexecute SQLstmt;
+     ENDIF;
+   ENDFOR;
+   CleanupDB;
+ }
+
+# alternative routine to insert tabular data into an ODBC Database. 
+We assume the data is a list of rows for the table with 
+as many items as their are columns in the table except that if there is an 
+autonumber column then no data is supplied for it. The data must be in the same
+order as the columns in the table.
+This version assumes the database is open.
+
+ODBCstoredata1 is OP Tblnm Data {
+   FOR Row WITH Data DO
+     Valpart := -2 drop link (EACH display1 Row EACHLEFT link ', ');
+     SQLstmt := link 'INSERT INTO ' (string Tblnm) 
+          ' VALUES (' Valpart ');';
+     ODBCexecute SQLstmt;
+   ENDFOR;
+ }
+
+
+# another alternative routine to insert tabular data into an ODBC Database. 
+We assume the data is a list of rows for the table with 
+as many items as their are column names given. 
+This version assumes the database is open.
+
+ODBCstoredata2 is OP Tblnm Colnms Data {
+   Colnmpart := link '(' (front link ( EACH string Colnms 
+      EACHLEFT link ',' )) ')'; 
+   FOR Row WITH Data DO
+     IF tally Row = tally Colnms THEN
+       Valpart := -2 drop link (EACH display1 Row EACHLEFT link ', ');
+       SQLstmt := link 'INSERT INTO ' (string Tblnm) Colnmpart
+          ' VALUES (' Valpart ');';
+       Res := ODBCexecute SQLstmt;
+     ENDIF;
+   ENDFOR;
+ }

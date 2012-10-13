@@ -1,0 +1,25 @@
+# TUT_ENV.NDF
+
+# This environment is used when trying the examples in the Q'Nial Tutorial
+  manual.
+
+wsname := "Tutorial ;
+
+sortdown IS SORT >=
+
+Clearscreen IS (ITERATE writescreen (24 reshape [' ']))
+
+
+table gets 3 4 reshape count 12 ;
+
+Latent IS {
+   Clearscreen ;
+   ITERATE writescreen [' ',
+   ' Q''Nial is in diagram mode, with intial operations and variables',
+   ' defined for use in conjunction with the text book:',
+   ' ',
+   '                The Q''Nial Tutorial.',
+   ' '];
+   set "diagram ; }
+
+Latent

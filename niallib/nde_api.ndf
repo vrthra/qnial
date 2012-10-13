@@ -1,0 +1,43 @@
+# This is a test routine for the Nial Data Engine called from Nial.  This can
+# be run under any Windows verison of Q'Nial.
+
+#-- Indicate where the DLL is:
+
+#nde32path := '\Program Files\NSL\WinNial 6.21\'
+
+nde32path := '\Progra~1\NSL\WinNia~1.21\'
+
+#-- Register the DLL functions:
+
+registerdllfun 'InitNial' 'NC_InitNial' (link nde32path 'nde32.dll') "INT ["INT, "INT,"INT]
+
+registerdllfun 'CommandInterpret' 'NC_CommandInterpret' (link nde32path 'nde32.dll') "INT ["LPSTR, "INT,"INT]
+
+registerdllfun 'GetBuffer' 'NC_GetBuffer' (link nde32path 'nde32.dll') "LPSTR []
+
+registerdllfun 'StopNial' 'NC_StopNial' (link nde32path 'nde32.dll') "INT []
+
+
+#-- Start the interpreter:
+
+write calldllfun 'InitNial' 0 0 0;
+
+#-- Get the banner information to avoid confusion;
+
+write calldllfun 'GetBuffer';
+
+#-- Execute code to define foo:
+
+write calldllfun 'CommandInterpret' 'foo is op a { write a;if a = 0 then 0 else foo ((abs a) - 1) endif};' 0 0
+
+#-- Execute code to use foo:
+
+write calldllfun 'CommandInterpret' 'foo 10' 0 0
+
+#-- Get the results:
+
+write calldllfun 'GetBuffer';
+
+#-- Stop the interpreter:
+
+write calldllfun 'StopNial';

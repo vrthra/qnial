@@ -1,0 +1,16 @@
+#
+Transformer: selectby Predicate Array
+File: selectby.ndf
+
+# SELECTBY selects items from an array which satisfy a given test.  It returns
+  a list.
+
+SELECTBY IS TRANSFORMER f ( sublist [ EACH f , pass ] )
+
+# Examples:
+
+#        SELECTBY (0<) (4 -2 3 -5)
+4 3
+
+#        SELECTBY (not isfault) (3 ?error "cat)
+3 cat

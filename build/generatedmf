@@ -1,0 +1,64 @@
+lang=c
+
+!ifeq lang c
+compile386 = wcc386
+!endif
+
+!ifeq lang cpp
+compile386 = wpp386
+!endif
+
+#VERSION = -dEXTDOS_P
+# for professional version
+VERSION = -dV4SHELL
+
+
+ALLOBJS= $(COREOBJS) $(NWINDOBJS)
+
+dllflags = 
+#cflags = -d2 -dDEBUG $(VERSION) -dC_COREAPI -dNO_POPEN -w3
+CFLAGS= $(VERSION) -dC_COREAPI -dNO_POPEN /onet /w3 /zq /zp4
+
+.EXTENSIONS:
+.EXTENSIONS: .dll .exe .obj .c
+
+.c.obj:
+	$(compile386) $[* $(dllflags) $(cflags)
+#.BEFORE
+#    set include=$(%watcom)\h\win;$(%include)
+
+all : nial.exe .SYMBOLIC
+
+	
+
+# The makefile section for the core
+
+
+COREOBJS= absmach.obj arith.obj  &
+	basics.obj  blders.obj  &
+	compare.obj  coreif.obj &
+	diag.obj   &
+	eval.obj   &
+	fileio.obj &
+	insel.obj  &
+	lib_main.obj linalg.obj logicops.obj &
+	main_stu.obj mainlp.obj  messages.obj mops.obj   &
+	ops.obj    &
+	parse.obj   profile.obj dos32if.obj picture.obj &
+	scan.obj  symtab.obj &
+	trig.obj    trs.obj    &
+	utils.obj  &
+	nfl.obj wsmanage.obj  &
+     userops.obj
+
+NWINDOBJS= nwindpkg.obj 
+
+nial.exe : $(ALLOBJS)
+	wlink @consnial
+
+
+clean : .SYMBOLIC
+	@if exist *.exe del *.exe
+	@if exist *.dll del *.dll
+	@if exist *.obj del *.obj
+	@if exist *.map del *.map

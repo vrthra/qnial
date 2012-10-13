@@ -1,0 +1,40 @@
+#
+Operation: getfilelist Pattern
+File: filelist.ndf
+
+# A utility to return a list of files given a pattern.
+  The pattern should include any path to the source files and
+  be an appropriate pattern for 'DIR' if under Windows or
+  for 'ls' if under UNIX.
+
+
+# for versions where we have pipes working (Unix)
+# the routine newhost gets the output of a command
+
+library "newhost
+
+filelist IS OPERATION Pattern {  
+    fix IS OPERATION Pairname { 
+       X := ( match Pairname `  ) cut Pairname ; 
+       IF tally X = 2 THEN 
+          link ( first X ) '.' ( second X ) 
+       ELSE 
+          first X 
+       ENDIF } ; 
+    IF System = "Windows THEN 
+       host ( link ( getenv 'COMSPEC' ) ' /c dir /b ' ( string 
+       Pattern ) ' > \tmp\tmp_pkgs' ) ; 
+       Allpkgs := getfile '\tmp\tmp_pkgs' ;  
+    ELSEIF System = "UNIX THEN 
+       Allpkgs := newhost ( link '\ls -da ' ( string Pattern ) ) ; 
+    ELSE 
+       Allpkgs := fault link '?filelist: no code for System = ' ( 
+       string System ) ; 
+    ENDIF ; 
+    Allpkgs } 
+
+
+#Example
+
+#
+filelist '*.*'
