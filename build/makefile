@@ -41,11 +41,11 @@ VERSION=
 
 #if SOLARIS & gcc turn these on
 
-CC= gcc
-CCC= g++
-WFLAG= -Wall
-CSFLAG= -pipe
-SYSFLAG= -DSUN4 -DSOLARIS2 -DUNIXSYS  $(VERSION)
+#CC= gcc
+#CCC= g++
+#WFLAG= -Wall
+#CSFLAG= -pipe
+#SYSFLAG= -DSUN4 -DSOLARIS2 -DUNIXSYS  $(VERSION)
 
 
 # Choose an alternate target by uncommenting a group below or creating a new group
@@ -54,11 +54,11 @@ SYSFLAG= -DSUN4 -DSOLARIS2 -DUNIXSYS  $(VERSION)
 
 #if LINUX & gcc turn these on
 
-#CCC= g++
-#CC= gcc
-#WFLAG= -Wall
-#CSFLAG= -pipe
-#SYSFLAG= -DLINUX -DUNIXSYS 
+CCC= g++
+CC= gcc
+WFLAG= -Wall
+CSFLAG= -pipe
+SYSFLAG= -DLINUX -DUNIXSYS 
 
 
 #if SUNOS & cc on a SUN turns these on
@@ -144,7 +144,7 @@ DEBUGFLAG=
 DEBUG_LIB= 
 
 # the socket lib used with Windows and gcc on Solaris
-SOCKLIB= -lsocket -lnsl
+#SOCKLIB= -lsocket -lnsl
 #SOCKLIB=
 
 LIBS= -lm -ltermcap $(DEBUG_LIB) $(SOCKLIB) 
