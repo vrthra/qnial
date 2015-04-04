@@ -23,7 +23,6 @@
 			bottom: 0;
 			overflow: auto;
 			width: 14em;
-			padding-right: 1em;
 		}
 		section {
 			border-top: 2px groove #eee;
@@ -73,6 +72,21 @@
 		th:first-child, td:first-child {
 			white-space: nowrap;
 		}
+		li:target > span, section:target h2 {
+			color: #c00;
+		}
+		nav > ul {
+			padding: 0 1em;
+		}
+		nav > ul > li {
+			list-style: none;
+		}
+		nav > ul > li > ul {
+			margin: .5em 0;
+		}
+		nav > ul > li > ul > li {
+			list-style: disc;
+		}
 	</style>
 </head>
 <body>
@@ -93,8 +107,8 @@
 
 <nav>
 	<ul>
-		<li>
-			<span>Arithmetic operations</span>
+		<li id="arithmetic_operation">
+			<span>Arithmetic operations:</span>
 			<ul>
 				<li><a href="#abs">abs</a></li>
 				<li><a href="#ceiling">ceiling</a></li>
@@ -112,23 +126,23 @@
 				<li><a href="#times">times</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Reduction transformers</span>
+		<li id="reduction_transformer">
+			<span>Reduction transformers:</span>
 			<ul>
 				<li><a href="#accumulate">accumulate</a></li>
 				<li><a href="#reduce">reduce</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Recursion transformers</span>
+		<li id="recursion_transformer">
+			<span>Recursion transformers:</span>
 			<ul>
 				<li><a href="#across">across</a></li>
 				<li><a href="#down">down</a></li>
 				<li><a href="#recur">recur</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Syntax</span>
+		<li id="syntax">
+			<span>Syntax:</span>
 			<ul>
 				<li><a href="#action">action</a></li>
 				<li><a href="#assign_expression">assign expression</a></li>
@@ -150,8 +164,8 @@
 				<li><a href="#variable">variable</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Concepts</span>
+		<li id="concept">
+			<span>Concepts:</span>
 			<ul>
 				<li><a href="#address">address</a></li>
 				<li><a href="#argument">argument</a></li>
@@ -195,8 +209,8 @@
 				<li><a href="#transformer">transformer</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Measurement operations</span>
+		<li id="measurement_operation">
+			<span>Measurement operations:</span>
 			<ul>
 				<li><a href="#allbools">allbools</a></li>
 				<li><a href="#allchars">allchars</a></li>
@@ -219,15 +233,15 @@
 				<li><a href="#valence">valence</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Set-like operations</span>
+		<li id="set_like_operation">
+			<span>Set-like operations:</span>
 			<ul>
 				<li><a href="#allin">allin</a></li>
 				<li><a href="#like">like</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Logic operations</span>
+		<li id="logic_operation">
+			<span>Logic operations:</span>
 			<ul>
 				<li><a href="#and">and</a></li>
 				<li><a href="#diverse">diverse</a></li>
@@ -237,8 +251,8 @@
 				<li><a href="#unequal">unequal</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Construction operations</span>
+		<li id="construction_operation">
+			<span>Construction operations:</span>
 			<ul>
 				<li><a href="#append">append</a></li>
 				<li><a href="#cart">cart</a></li>
@@ -251,8 +265,8 @@
 				<li><a href="#solitary">solitary</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>File operations</span>
+		<li id="file_operation">
+			<span>File operations:</span>
 			<ul>
 				<li><a href="#appendfile">appendfile</a></li>
 				<li><a href="#close">close</a></li>
@@ -264,8 +278,8 @@
 				<li><a href="#writefile">writefile</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Evaluation operations</span>
+		<li id="evaluation_operation">
+			<span>Evaluation operations:</span>
 			<ul>
 				<li><a href="#apply">apply</a></li>
 				<li><a href="#assign">assign</a></li>
@@ -284,8 +298,8 @@
 				<li><a href="#value">value</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Scientific operations</span>
+		<li id="scientific_operation">
+			<span>Scientific operations:</span>
 			<ul>
 				<li><a href="#arccos">arccos</a></li>
 				<li><a href="#arcsin">arcsin</a></li>
@@ -302,16 +316,16 @@
 				<li><a href="#tanh">tanh</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Structure testing operations</span>
+		<li id="structure_testing_operation">
+			<span>Structure testing operations:</span>
 			<ul>
 				<li><a href="#atomic">atomic</a></li>
 				<li><a href="#empty">empty</a></li>
 				<li><a href="#simple">simple</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Operation properties</span>
+		<li id="operation_property">
+			<span>Operation properties:</span>
 			<ul>
 				<li><a href="#binary">binary</a></li>
 				<li><a href="#binary_pervasive">binary pervasive</a></li>
@@ -321,8 +335,8 @@
 				<li><a href="#unary_pervasive">unary pervasive</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Nesting restructuring operations</span>
+		<li id="nesting_restructuring_operation">
+			<span>Nesting restructuring operations:</span>
 			<ul>
 				<li><a href="#blend">blend</a></li>
 				<li><a href="#cols">cols</a></li>
@@ -334,8 +348,8 @@
 				<li><a href="#split">split</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>System expressions</span>
+		<li id="system_expression">
+			<span>System expressions:</span>
 			<ul>
 				<li><a href="#break">break</a></li>
 				<li><a href="#breaklist">breaklist</a></li>
@@ -359,8 +373,8 @@
 				<li><a href="#watchlist">watchlist</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>System operations</span>
+		<li id="system_operation">
+			<span>System operations:</span>
 			<ul>
 				<li><a href="#breakin">breakin</a></li>
 				<li><a href="#calldllfun">calldllfun</a></li>
@@ -389,8 +403,8 @@
 				<li><a href="#watch">watch</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Apply-by-partition transformers</span>
+		<li id="apply_by_partition_transformer">
+			<span>Apply-by-partition transformers:</span>
 			<ul>
 				<li><a href="#bycols">bycols</a></li>
 				<li><a href="#byrows">byrows</a></li>
@@ -400,8 +414,8 @@
 				<li><a href="#reducerows">reducerows</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Applicative transformers</span>
+		<li id="applicative_transformer">
+			<span>Applicative transformers:</span>
 			<ul>
 				<li><a href="#bykey">bykey</a></li>
 				<li><a href="#converse">converse</a></li>
@@ -411,8 +425,8 @@
 				<li><a href="#team">team</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Control structures</span>
+		<li id="control_structure">
+			<span>Control structures:</span>
 			<ul>
 				<li><a href="#case_expr">case-expr</a></li>
 				<li><a href="#for_loop">for-loop</a></li>
@@ -421,8 +435,8 @@
 				<li><a href="#while_loop">while-loop</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Conversion operations</span>
+		<li id="conversion_operation">
+			<span>Conversion operations:</span>
 			<ul>
 				<li><a href="#char">char</a></li>
 				<li><a href="#charrep">charrep</a></li>
@@ -438,15 +452,15 @@
 				<li><a href="#toupper">toupper</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>User defined expressions</span>
+		<li id="user_defined_expression">
+			<span>User defined expressions:</span>
 			<ul>
 				<li><a href="#checkpoint">checkpoint</a></li>
 				<li><a href="#latent">latent</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Selection operations</span>
+		<li id="selection_operation">
+			<span>Selection operations:</span>
 			<ul>
 				<li><a href="#choose">choose</a></li>
 				<li><a href="#cull">cull</a></li>
@@ -468,16 +482,16 @@
 				<li><a href="#third">third</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Profiling expressions</span>
+		<li id="profiling_expression">
+			<span>Profiling expressions:</span>
 			<ul>
 				<li><a href="#clearprofile">clearprofile</a></li>
 				<li><a href="#profiletable">profiletable</a></li>
 				<li><a href="#profiletree">profiletree</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Constant expressions</span>
+		<li id="constant_expression">
+			<span>Constant expressions:</span>
 			<ul>
 				<li><a href="#copyright">copyright</a></li>
 				<li><a href="#false">false</a></li>
@@ -489,8 +503,8 @@
 				<li><a href="#version">version</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Array generation operations</span>
+		<li id="array_generation_operation">
+			<span>Array generation operations:</span>
 			<ul>
 				<li><a href="#count">count</a></li>
 				<li><a href="#grid">grid</a></li>
@@ -499,16 +513,16 @@
 				<li><a href="#tell">tell</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Insertion operations</span>
+		<li id="insertion_operation">
+			<span>Insertion operations:</span>
 			<ul>
 				<li><a href="#deepplace">deepplace</a></li>
 				<li><a href="#place">place</a></li>
 				<li><a href="#placeall">placeall</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Picture operations</span>
+		<li id="picture_operation">
+			<span>Picture operations:</span>
 			<ul>
 				<li><a href="#diagram">diagram</a></li>
 				<li><a href="#display">display</a></li>
@@ -519,8 +533,8 @@
 				<li><a href="#sketch">sketch</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Distributive transformers</span>
+		<li id="distributive_transformer">
+			<span>Distributive transformers:</span>
 			<ul>
 				<li><a href="#each">each</a></li>
 				<li><a href="#eachall">eachall</a></li>
@@ -531,8 +545,8 @@
 				<li><a href="#twig">twig</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Nial direct access file operations</span>
+		<li id="nial_direct_access_file_operation">
+			<span>Nial direct access file operations:</span>
 			<ul>
 				<li><a href="#eraserecord">eraserecord</a></li>
 				<li><a href="#filetally">filetally</a></li>
@@ -542,28 +556,28 @@
 				<li><a href="#writerecord">writerecord</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Host direct access file operations</span>
+		<li id="host_direct_access_file_operation">
+			<span>Host direct access file operations:</span>
 			<ul>
 				<li><a href="#filelength">filelength</a></li>
 				<li><a href="#readfield">readfield</a></li>
 				<li><a href="#writefield">writefield</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>File expressions</span>
+		<li id="file_expression">
+			<span>File expressions:</span>
 			<ul>
 				<li><a href="#filestatus">filestatus</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Selection transformers</span>
+		<li id="selection_transformer">
+			<span>Selection transformers:</span>
 			<ul>
 				<li><a href="#filter">filter</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Search operations</span>
+		<li id="search_operation">
+			<span>Search operations:</span>
 			<ul>
 				<li><a href="#find">find</a></li>
 				<li><a href="#findall">findall</a></li>
@@ -572,8 +586,8 @@
 				<li><a href="#seek">seek</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Data rearrangement operations</span>
+		<li id="data_rearrangement_operation">
+			<span>Data rearrangement operations:</span>
 			<ul>
 				<li><a href="#flip">flip</a></li>
 				<li><a href="#fuse">fuse</a></li>
@@ -583,29 +597,29 @@
 				<li><a href="#transpose">transpose</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Control structure transformers</span>
+		<li id="control_structure_transformer">
+			<span>Control structure transformers:</span>
 			<ul>
 				<li><a href="#fork">fork</a></li>
 				<li><a href="#iterate">iterate</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Sorting transformers</span>
+		<li id="sorting_transformer">
+			<span>Sorting transformers:</span>
 			<ul>
 				<li><a href="#grade">grade</a></li>
 				<li><a href="#sort">sort</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Sorting operations</span>
+		<li id="sorting_operation">
+			<span>Sorting operations:</span>
 			<ul>
 				<li><a href="#gradeup">gradeup</a></li>
 				<li><a href="#sortup">sortup</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Comparison operations</span>
+		<li id="comparison_operation">
+			<span>Comparison operations:</span>
 			<ul>
 				<li><a href="#gt">gt</a></li>
 				<li><a href="#gte">gte</a></li>
@@ -618,22 +632,22 @@
 				<li><a href="#up">up</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Linear algebra operations</span>
+		<li id="linear_algebra_operation">
+			<span>Linear algebra operations:</span>
 			<ul>
 				<li><a href="#innerproduct">innerproduct</a></li>
 				<li><a href="#inverse">inverse</a></li>
 				<li><a href="#solve">solve</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>System variables</span>
+		<li id="system_variable">
+			<span>System variables:</span>
 			<ul>
 				<li><a href="#libpath">libpath</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Reshaping operations</span>
+		<li id="reshaping_operation">
+			<span>Reshaping operations:</span>
 			<ul>
 				<li><a href="#list">list</a></li>
 				<li><a href="#mold">mold</a></li>
@@ -644,14 +658,14 @@
 				<li><a href="#void">void</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Features</span>
+		<li id="feature">
+			<span>Features:</span>
 			<ul>
 				<li><a href="#log_file">log file</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Debugging commands</span>
+		<li id="debugging_command">
+			<span>Debugging commands:</span>
 			<ul>
 				<li><a href="#next">next</a></li>
 				<li><a href="#resume">resume</a></li>
@@ -660,27 +674,27 @@
 				<li><a href="#toend">toend</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>System transformers</span>
+		<li id="system_transformer">
+			<span>System transformers:</span>
 			<ul>
 				<li><a href="#no_tr">no_tr</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>System constants</span>
+		<li id="system_constant">
+			<span>System constants:</span>
 			<ul>
 				<li><a href="#no_value">no_value</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Profiling operations</span>
+		<li id="profiling_operation">
+			<span>Profiling operations:</span>
 			<ul>
 				<li><a href="#profile">profile</a></li>
 				<li><a href="#setprofile">setprofile</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Interactive input/output operations</span>
+		<li id="interactive_input_output_operation">
+			<span>Interactive input/output operations:</span>
 			<ul>
 				<li><a href="#read">read</a></li>
 				<li><a href="#readscreen">readscreen</a></li>
@@ -689,20 +703,20 @@
 				<li><a href="#writescreen">writescreen</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>Interactive input/output expressions</span>
+		<li id="interactive_input_output_expression">
+			<span>Interactive input/output expressions:</span>
 			<ul>
 				<li><a href="#readchar">readchar</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>User defined operations</span>
+		<li id="user_defined_operation">
+			<span>User defined operations:</span>
 			<ul>
 				<li><a href="#recover">recover</a></li>
 			</ul>
 		</li>
-		<li>
-			<span>String manipulation operations</span>
+		<li id="string_manipulation_operation">
+			<span>String manipulation operations:</span>
 			<ul>
 				<li><a href="#regexp">regexp</a></li>
 				<li><a href="#regexp_match">regexp_match</a></li>
@@ -718,9 +732,9 @@
 	<h2>abs</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>abs A</code></dd>
 		<dt>See Also:</dt>
@@ -784,7 +798,7 @@
 	<h2>accumulate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reduction transformer</dd>
+		<dd><a href="#reduction_transformer">reduction transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>ACCUMULATE f A</code></dd>
 		<dt>See Also:</dt>
@@ -892,7 +906,7 @@ black and white</pre>
 	<h2>across</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>recursion transformer</dd>
+		<dd><a href="#recursion_transformer">recursion transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>ACROSS [endf, parta, joinf] A</code></dd>
 		<dt>See Also:</dt>
@@ -936,7 +950,7 @@ ACROSS IS TRANSFORMER endf parta joinf OPERATION A {­
 	<h2>action</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#definition">definition</a>, <a href="#expression_sequence">expression sequence</a>, <a href="#external_declaration">external declaration</a>, <a href="#comment">comment</a></dd>
 	</dl>
@@ -973,7 +987,7 @@ ACROSS IS TRANSFORMER endf parta joinf OPERATION A {­
 	<h2>address</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#array">array</a>, <a href="#pick">pick</a>, <a href="#indexing">indexing</a></dd>
 	</dl>
@@ -1023,9 +1037,9 @@ ACROSS IS TRANSFORMER endf parta joinf OPERATION A {­
 	<h2>allbools</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>allbools A</code></dd>
 		<dt>See Also:</dt>
@@ -1065,9 +1079,9 @@ o</pre>
 	<h2>allchars</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>allchars A</code></dd>
 		<dt>See Also:</dt>
@@ -1107,7 +1121,7 @@ o</pre>
 	<h2>allin</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>set-like operation</dd>
+		<dd><a href="#set_like_operation">set-like operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>binary, predicate</dd>
 		<dt>Usage:</dt>
@@ -1157,9 +1171,9 @@ o</pre>
 	<h2>allints</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>allints A</code></dd>
 		<dt>See Also:</dt>
@@ -1199,9 +1213,9 @@ o</pre>
 	<h2>allnumeric</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>allnumeric A</code></dd>
 		<dt>See Also:</dt>
@@ -1239,9 +1253,9 @@ o</pre>
 	<h2>allreals</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>allreals A</code></dd>
 		<dt>See Also:</dt>
@@ -1281,7 +1295,7 @@ o</pre>
 	<h2>and</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>logic operation</dd>
+		<dd><a href="#logic_operation">logic operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>multi pervasive, reductive</dd>
 		<dt>Usage:</dt>
@@ -1335,9 +1349,9 @@ looo</pre>
 	<h2>append</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A append B</code> <code>append A B</code></dd>
 		<dt>See Also:</dt>
@@ -1387,7 +1401,7 @@ looo</pre>
 	<h2>appendfile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>appendfile Filename A</code></dd>
 		<dt>See Also:</dt>
@@ -1433,7 +1447,7 @@ looo</pre>
 	<h2>apply</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Op apply A</code> <code>apply Op A</code></dd>
 		<dt>See Also:</dt>
@@ -1485,9 +1499,9 @@ looo</pre>
 	<h2>arccos</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>arccos A</code></dd>
 		<dt>See Also:</dt>
@@ -1552,9 +1566,9 @@ looo</pre>
 	<h2>arcsin</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>arcsin A</code></dd>
 		<dt>See Also:</dt>
@@ -1617,9 +1631,9 @@ looo</pre>
 	<h2>arctan</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>arctan A</code></dd>
 		<dt>See Also:</dt>
@@ -1682,7 +1696,7 @@ looo</pre>
 	<h2>argument</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#operation">operation</a></dd>
 	</dl>
@@ -1701,7 +1715,7 @@ looo</pre>
 	<h2>array</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#item">item</a>, <a href="#address">address</a>, <a href="#dimensions">dimensions</a></dd>
 	</dl>
@@ -1750,7 +1764,7 @@ looo</pre>
 	<h2>assign</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Nm assign A</code> <code>assign Nm A</code></dd>
 		<dt>See Also:</dt>
@@ -1807,7 +1821,7 @@ looo</pre>
 	<h2>assign expression</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#variable">variable</a>, <a href="#expression">expression</a>, <a href="#indexing">indexing</a>, <a href="#assign">assign</a></dd>
 	</dl>
@@ -1841,7 +1855,7 @@ looo</pre>
 	<h2>atlas</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#operation">operation</a></dd>
 	</dl>
@@ -1861,9 +1875,9 @@ looo</pre>
 	<h2>atomic</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>structure testing operation</dd>
+		<dd><a href="#structure_testing_operation">structure testing operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>atomic A</code></dd>
 		<dt>See Also:</dt>
@@ -1908,7 +1922,7 @@ o</pre>
 	<h2>axes</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>axes A</code></dd>
 		<dt>See Also:</dt>
@@ -1940,7 +1954,7 @@ o</pre>
 	<h2>binary</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>operation property</dd>
+		<dd><a href="#operation_property">operation property</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A f B</code> <code>f A B</code></dd>
 		<dt>See Also:</dt>
@@ -1978,7 +1992,7 @@ o</pre>
 	<h2>binary pervasive</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>operation property</dd>
+		<dd><a href="#operation_property">operation property</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A f B</code> <code>f A B</code></dd>
 		<dt>See Also:</dt>
@@ -2076,9 +2090,9 @@ l</pre>
 	<h2>blend</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A blend B</code> <code>blend A B</code></dd>
 		<dt>See Also:</dt>
@@ -2153,7 +2167,7 @@ l</pre>
 	<h2>block</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#local_environment">local environment</a>, <a href="#scope_of_a_variable">scope of a variable</a>, <a href="#nested_definition">nested definition</a></dd>
 	</dl>
@@ -2198,7 +2212,7 @@ l</pre>
 	<h2>bracket-comma notation</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#strand_notation">strand notation</a></dd>
 	</dl>
@@ -2240,7 +2254,7 @@ l
 	<h2>break</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Break</code></dd>
 		<dt>See Also:</dt>
@@ -2319,7 +2333,7 @@ foo
 	<h2>breakin</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>breakin Defname [Mode]</code></dd>
 		<dt>See Also:</dt>
@@ -2410,7 +2424,7 @@ TIMES 1 2 3
 	<h2>breaklist</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Breaklist</code></dd>
 		<dt>See Also:</dt>
@@ -2438,7 +2452,7 @@ labeltable</pre>
 	<h2>bycols</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>apply-by-partition transformer</dd>
+		<dd><a href="#apply_by_partition_transformer">apply-by-partition transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>BYCOLS f A</code></dd>
 		<dt>See Also:</dt>
@@ -2481,7 +2495,7 @@ labeltable</pre>
 	<h2>bye</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Bye</code></dd>
 		<dt>See Also:</dt>
@@ -2498,7 +2512,7 @@ labeltable</pre>
 	<h2>bykey</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>applicative transformer</dd>
+		<dd><a href="#applicative_transformer">applicative transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>K BYKEY f A</code> <code>BYKEY f K A</code></dd>
 		<dt>See Also:</dt>
@@ -2571,7 +2585,7 @@ a stichnmev
 	<h2>byrows</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>apply-by-partition transformer</dd>
+		<dd><a href="#apply_by_partition_transformer">apply-by-partition transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>BYROWS f A</code></dd>
 		<dt>See Also:</dt>
@@ -2613,7 +2627,7 @@ a stichnmev
 	<h2>by-variable</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#argument">argument</a>, <a href="#assign">assign</a></dd>
 	</dl>
@@ -2644,7 +2658,7 @@ a stichnmev
 	<h2>calldllfun</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>calldllfun Nm Arg0 ... ArgN</code></dd>
 		<dt>See Also:</dt>
@@ -2697,7 +2711,7 @@ a stichnmev
 	<h2>callstack</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Callstack</code></dd>
 		<dt>See Also:</dt>
@@ -2717,7 +2731,7 @@ a stichnmev
 	<h2>canonical</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#descan">descan</a>, <a href="#execute">execute</a></dd>
 	</dl>
@@ -2768,7 +2782,7 @@ a stichnmev
 	<h2>cart</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>cart A</code> <code>A cart B</code></dd>
 		<dt>See Also:</dt>
@@ -2830,7 +2844,7 @@ a stichnmev
 	<h2>case-expr</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>control structure</dd>
+		<dd><a href="#control_structure">control structure</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>CASE expression FROM C1: ES1 END ...  Cn: ESn END ELSE ESx ENDCASE</code></dd>
 		<dt>See Also:</dt>
@@ -2858,7 +2872,7 @@ March</pre>
 	<h2>cast</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 	</dl>
 	<p>
 		A
@@ -2986,7 +3000,7 @@ o</pre>
 	<h2>catenate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>I catenate A</code> <code>catenate I A</code></dd>
 		<dt>See Also:</dt>
@@ -3030,9 +3044,9 @@ o</pre>
 	<h2>ceiling</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>ceiling A</code></dd>
 		<dt>See Also:</dt>
@@ -3093,9 +3107,9 @@ o</pre>
 	<h2>char</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>char N</code></dd>
 		<dt>See Also:</dt>
@@ -3130,9 +3144,9 @@ BCDE</pre>
 	<h2>charrep</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>charrep C</code></dd>
 		<dt>See Also:</dt>
@@ -3168,7 +3182,7 @@ BCDE</pre>
 	<h2>checkpoint</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>user defined expression</dd>
+		<dd><a href="#user_defined_expression">user defined expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Checkpoint</code></dd>
 		<dt>See Also:</dt>
@@ -3196,9 +3210,9 @@ BCDE</pre>
 	<h2>choose</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>I choose A</code> <code>choose I A</code></dd>
 		<dt>See Also:</dt>
@@ -3266,7 +3280,7 @@ some
 	<h2>clear workspace</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#continue_workspace">continue workspace</a>, <a href="#standard_definitions">standard definitions</a>, <a href="#save">save</a>, <a href="#load">load</a>, <a href="#symbols">symbols</a>, <a href="#clearws">clearws</a>, <a href="#restart">restart</a></dd>
 	</dl>
@@ -3294,7 +3308,7 @@ some
 	<h2>clearprofile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>profiling expression</dd>
+		<dd><a href="#profiling_expression">profiling expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Clearprofile</code></dd>
 		<dt>See Also:</dt>
@@ -3321,7 +3335,7 @@ some
 	<h2>clearws</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Clearws</code></dd>
 		<dt>See Also:</dt>
@@ -3351,7 +3365,7 @@ some
 	<h2>close</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>close Fd</code></dd>
 		<dt>See Also:</dt>
@@ -3390,7 +3404,7 @@ some
 	<h2>cols</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>cols A</code></dd>
 		<dt>See Also:</dt>
@@ -3466,7 +3480,7 @@ some
 	<h2>comment</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#action">action</a></dd>
 	</dl>
@@ -3493,7 +3507,7 @@ some
 	<h2>conform</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#pack">pack</a>, <a href="#binary_pervasive">binary pervasive</a>, <a href="#multi_pervasive">multi pervasive</a></dd>
 	</dl>
@@ -3550,7 +3564,7 @@ some
 	<h2>content</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>content A</code></dd>
 		<dt>See Also:</dt>
@@ -3595,7 +3609,7 @@ some
 	<h2>continue</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Continue</code></dd>
 		<dt>See Also:</dt>
@@ -3623,7 +3637,7 @@ some
 	<h2>continue workspace</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#continue">continue</a>, <a href="#clear_workspace">clear workspace</a></dd>
 	</dl>
@@ -3643,7 +3657,7 @@ some
 	<h2>converse</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>applicative transformer</dd>
+		<dd><a href="#applicative_transformer">applicative transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A CONVERSE f B</code> <code>CONVERSE f A B</code></dd>
 		<dt>See Also:</dt>
@@ -3708,7 +3722,7 @@ l</pre>
 	<h2>copyright</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Copyright</code></dd>
 		<dt>See Also:</dt>
@@ -3728,9 +3742,9 @@ Copyright (c) Queen's University 1983-97</pre>
 	<h2>cos</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>cos A</code></dd>
 		<dt>See Also:</dt>
@@ -3785,9 +3799,9 @@ Copyright (c) Queen's University 1983-97</pre>
 	<h2>cosh</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>cosh A</code></dd>
 		<dt>See Also:</dt>
@@ -3845,7 +3859,7 @@ Copyright (c) Queen's University 1983-97</pre>
 	<h2>count</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>array generation operation</dd>
+		<dd><a href="#array_generation_operation">array generation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>count N</code></dd>
 		<dt>See Also:</dt>
@@ -3902,7 +3916,7 @@ Copyright (c) Queen's University 1983-97</pre>
 	<h2>cull</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>cull A</code></dd>
 		<dt>See Also:</dt>
@@ -3951,7 +3965,7 @@ a fewltrsihdupc</pre>
 	<h2>curried operation</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#apply">apply</a>, <a href="#operation_composition">operation composition</a></dd>
 	</dl>
@@ -3993,9 +4007,9 @@ a fewltrsihdupc</pre>
 	<h2>cut</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>B cut A</code> <code>cut B A</code></dd>
 		<dt>See Also:</dt>
@@ -4060,9 +4074,9 @@ a fewltrsihdupc</pre>
 	<h2>cutall</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>B cutall A</code> <code>cutall B A</code></dd>
 		<dt>See Also:</dt>
@@ -4112,7 +4126,7 @@ a fewltrsihdupc</pre>
 	<h2>debugging</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#breakin">breakin</a>, <a href="#watch">watch</a></dd>
 	</dl>
@@ -4165,7 +4179,7 @@ a fewltrsihdupc</pre>
 	<h2>deepplace</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>insertion operation</dd>
+		<dd><a href="#insertion_operation">insertion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>B P deepplace A</code> <code>deepplace (B P) A</code></dd>
 		<dt>See Also:</dt>
@@ -4234,7 +4248,7 @@ a fewltrsihdupc</pre>
 	<h2>deepupdate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>deepupdate Nm P A</code></dd>
 		<dt>See Also:</dt>
@@ -4286,7 +4300,7 @@ a fewltrsihdupc</pre>
 	<h2>definition</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#expression">expression</a>, <a href="#operation">operation</a>, <a href="#transformer">transformer</a></dd>
 	</dl>
@@ -4314,7 +4328,7 @@ a fewltrsihdupc</pre>
 	<h2>deparse</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>deparse Pt</code></dd>
 		<dt>See Also:</dt>
@@ -4363,7 +4377,7 @@ a fewltrsihdupc</pre>
 	<h2>depth</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>tally A</code></dd>
 		<dt>See Also:</dt>
@@ -4407,7 +4421,7 @@ a fewltrsihdupc</pre>
 	<h2>descan</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>descan Ts</code></dd>
 		<dt>See Also:</dt>
@@ -4457,7 +4471,7 @@ a fewltrsihdupc</pre>
 	<h2>diagram</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>picture operation</dd>
+		<dd><a href="#picture_operation">picture operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>diagram A</code></dd>
 		<dt>See Also:</dt>
@@ -4524,7 +4538,7 @@ a fewltrsihdupc</pre>
 	<h2>dimensions</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#valence">valence</a>, <a href="#axes">axes</a></dd>
 	</dl>
@@ -4561,7 +4575,7 @@ a fewltrsihdupc</pre>
 	<h2>display</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>picture operation</dd>
+		<dd><a href="#picture_operation">picture operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>display A</code></dd>
 		<dt>See Also:</dt>
@@ -4625,9 +4639,9 @@ l</pre>
 	<h2>diverse</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>logic operation</dd>
+		<dd><a href="#logic_operation">logic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>diverse A</code></dd>
 		<dt>See Also:</dt>
@@ -4678,9 +4692,9 @@ l</pre>
 	<h2>divide</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A divide B</code> <code>A / B</code> <code>A div B</code> <code>divide A B</code></dd>
 		<dt>See Also:</dt>
@@ -4725,7 +4739,7 @@ l</pre>
 	<h2>dlllist</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Dlllist</code></dd>
 		<dt>See Also:</dt>
@@ -4742,7 +4756,7 @@ l</pre>
 	<h2>down</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>recursion transformer</dd>
+		<dd><a href="#recursion_transformer">recursion transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>DOWN [test, endf, structf, joinf] A</code></dd>
 		<dt>See Also:</dt>
@@ -4807,9 +4821,9 @@ ENDIF;
 	<h2>drop</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A drop B</code> <code>drop A B</code></dd>
 		<dt>See Also:</dt>
@@ -4908,7 +4922,7 @@ Charlie Dog
 	<h2>dropright</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A dropright B</code> <code>dropright A B</code></dd>
 		<dt>See Also:</dt>
@@ -4930,7 +4944,7 @@ Charlie Dog
 	<h2>each</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>distributive transformer</dd>
+		<dd><a href="#distributive_transformer">distributive transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>EACH f A</code></dd>
 		<dt>See Also:</dt>
@@ -4993,7 +5007,7 @@ Charlie Dog
 	<h2>eachall</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>distributive transformer</dd>
+		<dd><a href="#distributive_transformer">distributive transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>EACHALL f A</code></dd>
 		<dt>See Also:</dt>
@@ -5082,7 +5096,7 @@ Charlie Dog
 	<h2>eachboth</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>distributive transformer</dd>
+		<dd><a href="#distributive_transformer">distributive transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A EACHBOTH f B</code> <code>EACHBOTH f A B</code></dd>
 		<dt>See Also:</dt>
@@ -5143,7 +5157,7 @@ Charlie Dog
 	<h2>eachleft</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>distributive transformer</dd>
+		<dd><a href="#distributive_transformer">distributive transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A EACHLEFT f B</code> <code>EACHLEFT f A B</code></dd>
 		<dt>See Also:</dt>
@@ -5194,7 +5208,7 @@ Charlie Dog
 	<h2>eachright</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>distributive transformer</dd>
+		<dd><a href="#distributive_transformer">distributive transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A EACHRIGHT f B</code> <code>EACHRIGHT f A B</code></dd>
 		<dt>See Also:</dt>
@@ -5245,7 +5259,7 @@ Charlie Dog
 	<h2>edit</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>edit Filename</code></dd>
 		<dt>See Also:</dt>
@@ -5276,9 +5290,9 @@ Charlie Dog
 	<h2>empty</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>structure testing operation</dd>
+		<dd><a href="#structure_testing_operation">structure testing operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>empty A</code></dd>
 		<dt>See Also:</dt>
@@ -5334,9 +5348,9 @@ o</pre>
 	<h2>equal</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>logic operation</dd>
+		<dd><a href="#logic_operation">logic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A equal B</code> <code>A = B</code> <code>equal A</code></dd>
 		<dt>See Also:</dt>
@@ -5391,7 +5405,7 @@ l</pre>
 	<h2>equations</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 	</dl>
 	<p>
 		The equations in the Nial Dictionary and in the on-line help provide an abbreviated way of stating properties of the term or object being described.  They could be expanded into an explanation in English but that would lengthen the manual considerably.
@@ -5620,7 +5634,7 @@ l</pre>
 	<h2>erase</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>erase Nm</code></dd>
 		<dt>See Also:</dt>
@@ -5674,7 +5688,7 @@ l</pre>
 	<h2>eraserecord</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nial direct access file operation</dd>
+		<dd><a href="#nial_direct_access_file_operation">nial direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>eraserecord Filenum N</code></dd>
 		<dt>See Also:</dt>
@@ -5714,7 +5728,7 @@ l</pre>
 	<h2>eval</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>eval Pt</code></dd>
 		<dt>See Also:</dt>
@@ -5769,9 +5783,9 @@ l</pre>
 	<h2>except</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A except B</code> <code>except A B</code></dd>
 		<dt>See Also:</dt>
@@ -5836,7 +5850,7 @@ l</pre>
 	<h2>execute</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>execute S</code></dd>
 		<dt>See Also:</dt>
@@ -5897,9 +5911,9 @@ l</pre>
 	<h2>exp</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>exp A</code></dd>
 		<dt>See Also:</dt>
@@ -5955,7 +5969,7 @@ l</pre>
 	<h2>expression</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#operation">operation</a>, <a href="#transformer">transformer</a></dd>
 	</dl>
@@ -5986,7 +6000,7 @@ l</pre>
 	<h2>expression sequence</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#expression">expression</a></dd>
 	</dl>
@@ -6009,7 +6023,7 @@ l</pre>
 	<h2>exprs</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Exprs</code></dd>
 		<dt>See Also:</dt>
@@ -6033,7 +6047,7 @@ l</pre>
 	<h2>extent</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#shape">shape</a></dd>
 	</dl>
@@ -6048,7 +6062,7 @@ l</pre>
 	<h2>external declaration</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#action">action</a>, <a href="#role">role</a></dd>
 	</dl>
@@ -6070,7 +6084,7 @@ l</pre>
 	<h2>false</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>False</code></dd>
 		<dt>See Also:</dt>
@@ -6100,7 +6114,7 @@ ol</pre>
 	<h2>fault</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>fault S</code></dd>
 		<dt>See Also:</dt>
@@ -6147,7 +6161,7 @@ Notastring
 	<h2>fault triggering</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#fault_values">fault values</a>, <a href="#settrigger">settrigger</a>, <a href="#quiet_fault">quiet_fault</a></dd>
 	</dl>
@@ -6211,7 +6225,7 @@ foo IS OPERATION A B {­
 	<h2>fault values</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 	</dl>
 	<p>
 		The Role of Faults
@@ -6249,7 +6263,7 @@ foo IS OPERATION A B {­
 	<h2>filelength</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>host direct access file operation</dd>
+		<dd><a href="#host_direct_access_file_operation">host direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>filelength Filename</code></dd>
 		<dt>See Also:</dt>
@@ -6281,7 +6295,7 @@ foo IS OPERATION A B {­
 	<h2>filepath</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>filepath Nms</code></dd>
 		<dt>See Also:</dt>
@@ -6322,7 +6336,7 @@ foo IS OPERATION A B {­
 	<h2>filestatus</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file expression</dd>
+		<dd><a href="#file_expression">file expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Filestatus</code></dd>
 		<dt>See Also:</dt>
@@ -6358,7 +6372,7 @@ foo IS OPERATION A B {­
 	<h2>filetally</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nial direct access file operation</dd>
+		<dd><a href="#nial_direct_access_file_operation">nial direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>filetally Filenum</code></dd>
 		<dt>See Also:</dt>
@@ -6382,7 +6396,7 @@ foo IS OPERATION A B {­
 	<h2>filter</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection transformer</dd>
+		<dd><a href="#selection_transformer">selection transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>FILTER f A</code></dd>
 		<dt>See Also:</dt>
@@ -6423,9 +6437,9 @@ foo IS OPERATION A B {­
 	<h2>find</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>search operation</dd>
+		<dd><a href="#search_operation">search operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A find B</code> <code>find A B</code></dd>
 		<dt>See Also:</dt>
@@ -6501,9 +6515,9 @@ foo IS OPERATION A B {­
 	<h2>findall</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>search operation</dd>
+		<dd><a href="#search_operation">search operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A findall B</code> <code>findall A B</code></dd>
 		<dt>See Also:</dt>
@@ -6587,7 +6601,7 @@ foo IS OPERATION A B {­
 	<h2>first</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>first A</code></dd>
 		<dt>See Also:</dt>
@@ -6631,7 +6645,7 @@ foo IS OPERATION A B {­
 	<h2>flip</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>data rearrangement operation</dd>
+		<dd><a href="#data_rearrangement_operation">data rearrangement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>flip A</code></dd>
 		<dt>See Also:</dt>
@@ -6649,9 +6663,9 @@ foo IS OPERATION A B {­
 	<h2>floor</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>floor A</code></dd>
 		<dt>See Also:</dt>
@@ -6709,7 +6723,7 @@ foo IS OPERATION A B {­
 	<h2>fold</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>applicative transformer</dd>
+		<dd><a href="#applicative_transformer">applicative transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>N FOLD f A</code> <code>FOLD f N A</code></dd>
 		<dt>See Also:</dt>
@@ -6761,7 +6775,7 @@ foo IS OPERATION A B {­
 	<h2>fork</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>control structure transformer</dd>
+		<dd><a href="#control_structure_transformer">control structure transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>FORK [f,g,h] A</code> <code>FORK [f,g,h,i,j,...z] A</code></dd>
 		<dt>See Also:</dt>
@@ -6814,7 +6828,7 @@ foo IS OPERATION A B {­
 	<h2>for-loop</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>control structure</dd>
+		<dd><a href="#control_structure">control structure</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>FOR Var WITH Exp DO ExpSeq ENDFOR</code></dd>
 		<dt>See Also:</dt>
@@ -6846,7 +6860,7 @@ foo IS OPERATION A B {­
 	<h2>fromraw</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>fromraw A B</code></dd>
 		<dt>See Also:</dt>
@@ -6896,7 +6910,7 @@ lollo</pre>
 	<h2>front</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>front A</code></dd>
 		<dt>See Also:</dt>
@@ -6938,7 +6952,7 @@ lollo</pre>
 	<h2>functions in nial</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#operation">operation</a>, <a href="#transformer">transformer</a></dd>
 	</dl>
@@ -6966,9 +6980,9 @@ lollo</pre>
 	<h2>fuse</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>data rearrangement operation</dd>
+		<dd><a href="#data_rearrangement_operation">data rearrangement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>I fuse A</code> <code>fuse I A</code></dd>
 		<dt>See Also:</dt>
@@ -7035,7 +7049,7 @@ lollo</pre>
 	<h2>gage</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>gage A</code></dd>
 		<dt>See Also:</dt>
@@ -7082,7 +7096,7 @@ lollo</pre>
 	<h2>getdef</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>getdef Nm</code></dd>
 		<dt>See Also:</dt>
@@ -7122,7 +7136,7 @@ lollo</pre>
 	<h2>getfile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>getfile Filename</code></dd>
 		<dt>See Also:</dt>
@@ -7160,7 +7174,7 @@ lollo</pre>
 	<h2>getname</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>getname Triple</code></dd>
 		<dt>See Also:</dt>
@@ -7181,7 +7195,7 @@ lollo</pre>
 	<h2>getsyms</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>getsyms Nm</code></dd>
 		<dt>See Also:</dt>
@@ -7201,7 +7215,7 @@ lollo</pre>
 	<h2>global environment</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#local_environment">local environment</a></dd>
 	</dl>
@@ -7216,7 +7230,7 @@ lollo</pre>
 	<h2>grade</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>sorting transformer</dd>
+		<dd><a href="#sorting_transformer">sorting transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>GRADE f A</code></dd>
 		<dt>See Also:</dt>
@@ -7310,7 +7324,7 @@ lollo</pre>
 	<h2>gradeup</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>sorting operation</dd>
+		<dd><a href="#sorting_operation">sorting operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>gradeup A</code></dd>
 		<dt>See Also:</dt>
@@ -7341,7 +7355,7 @@ lollo</pre>
 	<h2>grid</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>array generation operation</dd>
+		<dd><a href="#array_generation_operation">array generation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>grid A</code></dd>
 		<dt>See Also:</dt>
@@ -7385,9 +7399,9 @@ lollo</pre>
 	<h2>gt</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A gt B</code> <code>A &gt; B</code> <code>gt A B</code> <code>&gt; A B</code></dd>
 		<dt>See Also:</dt>
@@ -7454,9 +7468,9 @@ l</pre>
 	<h2>gte</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A gte B</code> <code>A &gt;= B</code> <code>gte A B</code> <code>&gt;= A B</code></dd>
 		<dt>See Also:</dt>
@@ -7524,7 +7538,7 @@ l</pre>
 	<h2>help</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Help</code></dd>
 		<dt>See Also:</dt>
@@ -7544,9 +7558,9 @@ l</pre>
 	<h2>hitch</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A hitch B</code> <code>hitch A B</code></dd>
 		<dt>See Also:</dt>
@@ -7597,7 +7611,7 @@ l</pre>
 	<h2>host</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>host S</code></dd>
 		<dt>See Also:</dt>
@@ -7627,7 +7641,7 @@ l</pre>
 	<h2>if-expr</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>control structure</dd>
+		<dd><a href="#control_structure">control structure</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>IF C1 THEN Es1 ELSEIF C2 THEN Es2 ...  ELSEIF Cn THEN Esn ELSE Esx ENDIF</code></dd>
 		<dt>See Also:</dt>
@@ -7676,9 +7690,9 @@ Juvenile</pre>
 	<h2>in</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>search operation</dd>
+		<dd><a href="#search_operation">search operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A in B</code> <code>in A B</code></dd>
 		<dt>See Also:</dt>
@@ -7744,7 +7758,7 @@ l</pre>
 	<h2>indexing</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#address">address</a>, <a href="#pick">pick</a>, <a href="#choose">choose</a>, <a href="#reach">reach</a></dd>
 	</dl>
@@ -7933,7 +7947,7 @@ Paris ?address ?address</pre>
 	<h2>infix notation</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#prefix_notation">prefix notation</a></dd>
 	</dl>
@@ -7967,7 +7981,7 @@ Paris ?address ?address</pre>
 	<h2>initial subdirectory</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#clear_workspace">clear workspace</a></dd>
 	</dl>
@@ -7998,7 +8012,7 @@ Paris ?address ?address</pre>
 	<h2>inner</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>applicative transformer</dd>
+		<dd><a href="#applicative_transformer">applicative transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A INNER [f,g] B</code> <code>INNER [f,g] A B</code></dd>
 		<dt>See Also:</dt>
@@ -8079,7 +8093,7 @@ l
 	<h2>innerproduct</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>linear algebra operation</dd>
+		<dd><a href="#linear_algebra_operation">linear algebra operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A innerproduct B</code> <code>A ip B</code> <code>innerproduct A B</code> <code>ip A B</code></dd>
 		<dt>See Also:</dt>
@@ -8122,7 +8136,7 @@ l
 	<h2>interrupt</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#fault_triggering">fault triggering</a>, <a href="#setinterrupts">setinterrupts</a>, <a href="#toplevel">toplevel</a></dd>
 	</dl>
@@ -8150,7 +8164,7 @@ l
 	<h2>inverse</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>linear algebra operation</dd>
+		<dd><a href="#linear_algebra_operation">linear algebra operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>inverse A</code> <code>inverse A</code></dd>
 		<dt>See Also:</dt>
@@ -8201,9 +8215,9 @@ l
 	<h2>isboolean</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>isboolean A</code></dd>
 		<dt>See Also:</dt>
@@ -8241,9 +8255,9 @@ o</pre>
 	<h2>ischar</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>ischar A</code></dd>
 		<dt>See Also:</dt>
@@ -8282,9 +8296,9 @@ loo</pre>
 	<h2>isfault</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>isfault A</code></dd>
 		<dt>See Also:</dt>
@@ -8317,9 +8331,9 @@ lo</pre>
 	<h2>isinteger</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>isinteger A</code></dd>
 		<dt>See Also:</dt>
@@ -8364,9 +8378,9 @@ l</pre>
 	<h2>isphrase</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>isphrase A</code></dd>
 		<dt>See Also:</dt>
@@ -8403,9 +8417,9 @@ o</pre>
 	<h2>isreal</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>isreal A</code></dd>
 		<dt>See Also:</dt>
@@ -8441,9 +8455,9 @@ o</pre>
 	<h2>isstring</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>isstring A</code></dd>
 		<dt>See Also:</dt>
@@ -8487,7 +8501,7 @@ l</pre>
 	<h2>item</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#array">array</a>, <a href="#address">address</a></dd>
 	</dl>
@@ -8584,7 +8598,7 @@ l</pre>
 	<h2>iterate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>control structure transformer</dd>
+		<dd><a href="#control_structure_transformer">control structure transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>ITERATE f A</code></dd>
 		<dt>See Also:</dt>
@@ -8656,7 +8670,7 @@ there.
 	<h2>juxtaposition</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 	</dl>
 	<p>
 		The syntax rules for simple-expressions show three uses of the side-by-side or juxtapositional notation of Nial: strand formation, prefix operation application and infix operation application.  There are no syntactic restrictions as to whether or not a particular operation may be applied in infix or prefix form.  A fault is returned at run time if an operation is used inappropriately.
@@ -8725,7 +8739,7 @@ there.
 	<h2>laminate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>I laminate A</code> <code>laminate I A</code></dd>
 		<dt>See Also:</dt>
@@ -8769,7 +8783,7 @@ there.
 	<h2>last</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>last A</code></dd>
 		<dt>See Also:</dt>
@@ -8816,7 +8830,7 @@ there.
 	<h2>latent</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>user defined expression</dd>
+		<dd><a href="#user_defined_expression">user defined expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Latent</code></dd>
 		<dt>See Also:</dt>
@@ -8848,7 +8862,7 @@ there.
 	<h2>leaf</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>distributive transformer</dd>
+		<dd><a href="#distributive_transformer">distributive transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>LEAF f A</code></dd>
 		<dt>See Also:</dt>
@@ -8929,7 +8943,7 @@ there.
 	<h2>level</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#item">item</a></dd>
 	</dl>
@@ -8968,7 +8982,7 @@ there.
 	<h2>libpath</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system variable</dd>
+		<dd><a href="#system_variable">system variable</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Libpath := Paths</code></dd>
 		<dt>See Also:</dt>
@@ -8993,7 +9007,7 @@ there.
 	<h2>library</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>library Nm</code> <code>library Nm Sw</code></dd>
 		<dt>See Also:</dt>
@@ -9034,7 +9048,7 @@ there.
 	<h2>like</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>set-like operation</dd>
+		<dd><a href="#set_like_operation">set-like operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>binary, predicate</dd>
 		<dt>Usage:</dt>
@@ -9078,9 +9092,9 @@ l</pre>
 	<h2>link</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Property:</dt>
-		<dd>reductive</dd>
+		<dd><a href="#reductive">reductive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>link A</code> <code>A link B</code></dd>
 		<dt>See Also:</dt>
@@ -9152,7 +9166,7 @@ henhelloeh</pre>
 	<h2>list</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reshaping operation</dd>
+		<dd><a href="#reshaping_operation">reshaping operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>list A</code></dd>
 		<dt>See Also:</dt>
@@ -9202,9 +9216,9 @@ henhelloeh</pre>
 	<h2>ln</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>ln A</code></dd>
 		<dt>See Also:</dt>
@@ -9259,7 +9273,7 @@ henhelloeh</pre>
 	<h2>load</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>load Wsname</code></dd>
 		<dt>See Also:</dt>
@@ -9302,7 +9316,7 @@ henhelloeh</pre>
 	<h2>loaddefs</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>loaddefs Deffilename</code> <code>loaddefs Deffilename Mode</code></dd>
 		<dt>See Also:</dt>
@@ -9351,7 +9365,7 @@ henhelloeh</pre>
 	<h2>local environment</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#global_environment">global environment</a>, <a href="#scope_of_a_variable">scope of a variable</a></dd>
 	</dl>
@@ -9414,9 +9428,9 @@ henhelloeh</pre>
 	<h2>log</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>log A</code></dd>
 		<dt>See Also:</dt>
@@ -9471,7 +9485,7 @@ henhelloeh</pre>
 	<h2>log file</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>feature</dd>
+		<dd><a href="#feature">feature</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#setlogname">setlogname</a></dd>
 	</dl>
@@ -9505,7 +9519,7 @@ auto.nlg</pre>
 	<h2>lower</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>N lower A</code> <code>lower N A</code></dd>
 		<dt>See Also:</dt>
@@ -9569,9 +9583,9 @@ GH  OP  WX
 	<h2>lt</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A lt B</code> <code>A &lt; B</code> <code>lt A B</code> <code>&lt; A B</code></dd>
 		<dt>See Also:</dt>
@@ -9637,9 +9651,9 @@ o</pre>
 	<h2>lte</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A lte B</code> <code>A &lt;= B</code> <code>lte A B</code> <code>&lt;= A B</code></dd>
 		<dt>See Also:</dt>
@@ -9701,9 +9715,9 @@ o</pre>
 	<h2>match</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A match B</code> <code>match A B</code></dd>
 		<dt>See Also:</dt>
@@ -9761,9 +9775,9 @@ olooooloolooooooo
 	<h2>mate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A mate B</code> <code>mate A B</code></dd>
 		<dt>See Also:</dt>
@@ -9816,7 +9830,7 @@ lll</pre>
 	<h2>max</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>multi pervasive, reductive</dd>
 		<dt>Usage:</dt>
@@ -9872,7 +9886,7 @@ orpngs</pre>
 	<h2>min</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>multi pervasive, reductive</dd>
 		<dt>Usage:</dt>
@@ -9931,9 +9945,9 @@ apalee</pre>
 	<h2>minus</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A minus B</code> <code>A - B</code> <code>minus A B</code></dd>
 		<dt>See Also:</dt>
@@ -9994,7 +10008,7 @@ l 2 2.5 a abc ?error
 	<h2>mix</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>mix A</code></dd>
 		<dt>See Also:</dt>
@@ -10075,9 +10089,9 @@ l 2 2.5 a abc ?error
 	<h2>mod</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A mod B</code> <code>mod A B</code></dd>
 		<dt>See Also:</dt>
@@ -10145,7 +10159,7 @@ l 2 2.5 a abc ?error
 	<h2>mold</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reshaping operation</dd>
+		<dd><a href="#reshaping_operation">reshaping operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A mold B</code> <code>mold A B</code></dd>
 		<dt>See Also:</dt>
@@ -10170,7 +10184,7 @@ l 2 2.5 a abc ?error
 	<h2>multi pervasive</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>operation property</dd>
+		<dd><a href="#operation_property">operation property</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>f A</code> <code>f A B ... C</code></dd>
 		<dt>See Also:</dt>
@@ -10244,7 +10258,7 @@ l</pre>
 	<h2>nested definition</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#block">block</a>, <a href="#definition">definition</a></dd>
 	</dl>
@@ -10262,7 +10276,7 @@ l</pre>
 	<h2>next</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>debugging command</dd>
+		<dd><a href="#debugging_command">debugging command</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>next</code></dd>
 		<dt>See Also:</dt>
@@ -10287,7 +10301,7 @@ l</pre>
 	<h2>nialroot</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Nialroot</code></dd>
 		<dt>See Also:</dt>
@@ -10304,7 +10318,7 @@ l</pre>
 	<h2>no_expr</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>No_expr</code></dd>
 		<dt>See Also:</dt>
@@ -10322,7 +10336,7 @@ l</pre>
 	<h2>no_op</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>no_op A</code></dd>
 		<dt>See Also:</dt>
@@ -10342,7 +10356,7 @@ l</pre>
 	<h2>no_tr</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system transformer</dd>
+		<dd><a href="#system_transformer">system transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>no_tr f A</code></dd>
 		<dt>See Also:</dt>
@@ -10364,7 +10378,7 @@ l</pre>
 	<h2>no_value</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system constant</dd>
+		<dd><a href="#system_constant">system constant</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>?no_value</code></dd>
 		<dt>See Also:</dt>
@@ -10381,9 +10395,9 @@ l</pre>
 	<h2>not</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>logic operation</dd>
+		<dd><a href="#logic_operation">logic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>not A</code></dd>
 		<dt>See Also:</dt>
@@ -10428,7 +10442,7 @@ olool
 	<h2>notin</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>search operation</dd>
+		<dd><a href="#search_operation">search operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>binary, predicate</dd>
 		<dt>Usage:</dt>
@@ -10477,7 +10491,7 @@ l</pre>
 	<h2>null</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Null</code></dd>
 		<dt>See Also:</dt>
@@ -10545,9 +10559,9 @@ l</pre>
 	<h2>numeric</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>numeric A</code></dd>
 		<dt>See Also:</dt>
@@ -10585,7 +10599,7 @@ o</pre>
 	<h2>numeric type hierarchy</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#sum">sum</a>, <a href="#or">or</a></dd>
 	</dl>
@@ -10610,7 +10624,7 @@ o</pre>
 	<h2>open</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>open Filename Mode</code></dd>
 		<dt>See Also:</dt>
@@ -10722,7 +10736,7 @@ o</pre>
 	<h2>operation</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#expression">expression</a>, <a href="#transformer">transformer</a></dd>
 	</dl>
@@ -10748,7 +10762,7 @@ o</pre>
 	<h2>operation composition</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#curried_operation">curried operation</a></dd>
 	</dl>
@@ -10791,7 +10805,7 @@ o</pre>
 	<h2>operation form</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#operation">operation</a>, <a href="#definition">definition</a></dd>
 	</dl>
@@ -10826,9 +10840,9 @@ o</pre>
 	<h2>opposite</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>opposite A</code> <code>opp A</code></dd>
 		<dt>See Also:</dt>
@@ -10903,7 +10917,7 @@ o</pre>
 	<h2>ops</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Ops</code></dd>
 		<dt>See Also:</dt>
@@ -10927,7 +10941,7 @@ o</pre>
 	<h2>or</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>logic operation</dd>
+		<dd><a href="#logic_operation">logic operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>multi pervasive, reductive</dd>
 		<dt>Usage:</dt>
@@ -10975,7 +10989,7 @@ lllo</pre>
 	<h2>outer</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>applicative transformer</dd>
+		<dd><a href="#applicative_transformer">applicative transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A OUTER f B</code> <code>OUTER f A</code></dd>
 		<dt>See Also:</dt>
@@ -11034,7 +11048,7 @@ lllo</pre>
 	<h2>overflow</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 	</dl>
 	<p>
 		The term
@@ -11050,7 +11064,7 @@ lllo</pre>
 	<h2>pack</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>data rearrangement operation</dd>
+		<dd><a href="#data_rearrangement_operation">data rearrangement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>pack A</code></dd>
 		<dt>See Also:</dt>
@@ -11126,7 +11140,7 @@ lllo</pre>
 	<h2>pair</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A pair B</code> <code>pair A B</code></dd>
 		<dt>See Also:</dt>
@@ -11171,7 +11185,7 @@ lllo</pre>
 	<h2>parse</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>parse Tokenstream</code></dd>
 		<dt>See Also:</dt>
@@ -11225,7 +11239,7 @@ lllo</pre>
 	<h2>partition</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>apply-by-partition transformer</dd>
+		<dd><a href="#apply_by_partition_transformer">apply-by-partition transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>I,J] PARTITION f A</code> <code>I] PARTITION f A</code></dd>
 		<dt>See Also:</dt>
@@ -11356,7 +11370,7 @@ PARTITION IS TRANSFORMER f OPERATION Ij A {­
 	<h2>pass</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reshaping operation</dd>
+		<dd><a href="#reshaping_operation">reshaping operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>pass A</code></dd>
 		<dt>See Also:</dt>
@@ -11392,7 +11406,7 @@ hello world</pre>
 	<h2>paste</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>picture operation</dd>
+		<dd><a href="#picture_operation">picture operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Sw paste A</code></dd>
 		<dt>See Also:</dt>
@@ -11461,7 +11475,7 @@ hello world</pre>
 	<h2>pervasive</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#unary_pervasive">unary pervasive</a>, <a href="#binary_pervasive">binary pervasive</a>, <a href="#multi_pervasive">multi pervasive</a></dd>
 	</dl>
@@ -11482,7 +11496,7 @@ hello world</pre>
 	<h2>phrase</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>phrase S</code></dd>
 		<dt>See Also:</dt>
@@ -11518,7 +11532,7 @@ hello world</pre>
 	<h2>pi</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Pi</code></dd>
 		<dt>See Also:</dt>
@@ -11545,9 +11559,9 @@ hello world</pre>
 	<h2>pick</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>I pick A</code> <code>pick I A</code></dd>
 		<dt>See Also:</dt>
@@ -11615,7 +11629,7 @@ of
 	<h2>picture</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>picture operation</dd>
+		<dd><a href="#picture_operation">picture operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>picture A</code></dd>
 		<dt>See Also:</dt>
@@ -11722,7 +11736,7 @@ of
 	<h2>place</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>insertion operation</dd>
+		<dd><a href="#insertion_operation">insertion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>B I place A</code> <code>place (B I) A</code></dd>
 		<dt>See Also:</dt>
@@ -11806,7 +11820,7 @@ my_work
 	<h2>placeall</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>insertion operation</dd>
+		<dd><a href="#insertion_operation">insertion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>B I placeall A</code> <code>placeall (B I) A</code></dd>
 		<dt>See Also:</dt>
@@ -11902,9 +11916,9 @@ my_work_is_fun
 	<h2>plus</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A plus B</code> <code>plus A B</code></dd>
 		<dt>See Also:</dt>
@@ -11937,7 +11951,7 @@ my_work_is_fun
 	<h2>positions</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>picture operation</dd>
+		<dd><a href="#picture_operation">picture operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>positions A</code></dd>
 		<dt>See Also:</dt>
@@ -11978,7 +11992,7 @@ my_work_is_fun
 	<h2>post</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reshaping operation</dd>
+		<dd><a href="#reshaping_operation">reshaping operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>post A</code></dd>
 		<dt>See Also:</dt>
@@ -12032,9 +12046,9 @@ my_work_is_fun
 	<h2>power</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A power B</code> <code>power A B</code></dd>
 		<dt>See Also:</dt>
@@ -12107,7 +12121,7 @@ l 2 2.5 a abc ?error
 	<h2>predicate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>operation property</dd>
+		<dd><a href="#operation_property">operation property</a></dd>
 	</dl>
 	<p>
 		A
@@ -12197,7 +12211,7 @@ l 2 2.5 a abc ?error
 	<h2>prefix notation</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#infix_notation">infix notation</a></dd>
 	</dl>
@@ -12219,7 +12233,7 @@ l 2 2.5 a abc ?error
 	<h2>prelattice of atoms</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#lte">lte</a>, <a href="#up">up</a>, <a href="#max">max</a></dd>
 	</dl>
@@ -12277,7 +12291,7 @@ l 2 2.5 a abc ?error
 	<h2>product</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>multi pervasive, reductive</dd>
 		<dt>Usage:</dt>
@@ -12341,7 +12355,7 @@ l 2 2.5 a abc ?error
 	<h2>profile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>profiling operation</dd>
+		<dd><a href="#profiling_operation">profiling operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>profile Fnm</code></dd>
 		<dt>See Also:</dt>
@@ -12372,7 +12386,7 @@ l 2 2.5 a abc ?error
 	<h2>profiletable</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>profiling expression</dd>
+		<dd><a href="#profiling_expression">profiling expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Profiletable</code></dd>
 		<dt>See Also:</dt>
@@ -12416,7 +12430,7 @@ ain|1|0|3.96|+------------------+||
 	<h2>profiletree</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>profiling expression</dd>
+		<dd><a href="#profiling_expression">profiling expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Profiletree</code></dd>
 		<dt>See Also:</dt>
@@ -12474,7 +12488,7 @@ ain|1|0|3.96|+------------------+||
 	<h2>profiling</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#setprofile">setprofile</a>, <a href="#profile">profile</a></dd>
 	</dl>
@@ -12726,7 +12740,7 @@ fact|1|0.|+------------+|||||||
 	<h2>program fragment</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#expression">expression</a></dd>
 	</dl>
@@ -12746,7 +12760,7 @@ fact|1|0.|+------------+|||||||
 	<h2>putfile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>putfile Filename A</code></dd>
 		<dt>See Also:</dt>
@@ -12786,7 +12800,7 @@ men','to come to the aid']</pre>
 	<h2>quiet_fault</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>quiet_fault A</code></dd>
 		<dt>See Also:</dt>
@@ -12814,9 +12828,9 @@ men','to come to the aid']</pre>
 	<h2>quotient</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A quotient B</code> <code>quotient A B</code></dd>
 		<dt>See Also:</dt>
@@ -12885,9 +12899,9 @@ men','to come to the aid']</pre>
 	<h2>raise</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>N raise A</code> <code>raise N A</code></dd>
 		<dt>See Also:</dt>
@@ -12953,7 +12967,7 @@ GH  OP  WX
 	<h2>random</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>array generation operation</dd>
+		<dd><a href="#array_generation_operation">array generation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>random S</code></dd>
 		<dt>See Also:</dt>
@@ -13000,7 +13014,7 @@ GH  OP  WX
 	<h2>rank</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>apply-by-partition transformer</dd>
+		<dd><a href="#apply_by_partition_transformer">apply-by-partition transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>N RANK f A</code></dd>
 		<dt>See Also:</dt>
@@ -13044,9 +13058,9 @@ GH  OP  WX
 	<h2>reach</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>P reach A</code> <code>reach P A</code></dd>
 		<dt>See Also:</dt>
@@ -13118,7 +13132,7 @@ GH  OP  WX
 	<h2>read</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>interactive input/output operation</dd>
+		<dd><a href="#interactive_input_output_operation">interactive input/output operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>read P</code></dd>
 		<dt>See Also:</dt>
@@ -13160,7 +13174,7 @@ Type an expression : 3 + count 10
 	<h2>readarray</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nial direct access file operation</dd>
+		<dd><a href="#nial_direct_access_file_operation">nial direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>readarray Fnum N</code></dd>
 		<dt>See Also:</dt>
@@ -13208,7 +13222,7 @@ Type an expression : 3 + count 10
 	<h2>readchar</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>interactive input/output expression</dd>
+		<dd><a href="#interactive_input_output_expression">interactive input/output expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Readchar</code></dd>
 		<dt>See Also:</dt>
@@ -13385,7 +13399,7 @@ Backspace</pre>
 	<h2>readfield</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>host direct access file operation</dd>
+		<dd><a href="#host_direct_access_file_operation">host direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>readfield Filename Start Size</code></dd>
 		<dt>See Also:</dt>
@@ -13418,7 +13432,7 @@ Backspace</pre>
 	<h2>readfile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>readfile Fnum</code> <code>readfile Fnum N</code></dd>
 		<dt>See Also:</dt>
@@ -13464,7 +13478,7 @@ Backspace</pre>
 	<h2>readrecord</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nial direct access file operation</dd>
+		<dd><a href="#nial_direct_access_file_operation">nial direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>readrecord Fnum N</code></dd>
 		<dt>See Also:</dt>
@@ -13556,7 +13570,7 @@ Backspace</pre>
 	<h2>readscreen</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>interactive input/output operation</dd>
+		<dd><a href="#interactive_input_output_operation">interactive input/output operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>readscreen P</code></dd>
 		<dt>See Also:</dt>
@@ -13597,9 +13611,9 @@ Mike
 	<h2>reciprocal</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>reciprocal A</code> <code>recip A</code></dd>
 		<dt>See Also:</dt>
@@ -13671,7 +13685,7 @@ Mike
 	<h2>recover</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>user defined operation</dd>
+		<dd><a href="#user_defined_operation">user defined operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>recover Msg</code></dd>
 		<dt>See Also:</dt>
@@ -13736,7 +13750,7 @@ Mike
 	<h2>recur</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>recursion transformer</dd>
+		<dd><a href="#recursion_transformer">recursion transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>RECUR [test, endf, parta, joinf, partb] A</code></dd>
 		<dt>See Also:</dt>
@@ -13792,7 +13806,7 @@ Mike
 	<h2>reduce</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reduction transformer</dd>
+		<dd><a href="#reduction_transformer">reduction transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>REDUCE f A</code></dd>
 		<dt>See Also:</dt>
@@ -13873,7 +13887,7 @@ abcde
 	<h2>reducecols</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>apply-by-partition transformer</dd>
+		<dd><a href="#apply_by_partition_transformer">apply-by-partition transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>REDUCECOLS f A</code></dd>
 		<dt>See Also:</dt>
@@ -13905,7 +13919,7 @@ abcde
 	<h2>reducerows</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>apply-by-partition transformer</dd>
+		<dd><a href="#apply_by_partition_transformer">apply-by-partition transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>REDUCEROWS f A</code></dd>
 		<dt>See Also:</dt>
@@ -13937,7 +13951,7 @@ abcde
 	<h2>reductive</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>operation property</dd>
+		<dd><a href="#operation_property">operation property</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#multi_pervasive">multi pervasive</a>, <a href="#reduce">reduce</a></dd>
 	</dl>
@@ -13999,7 +14013,7 @@ abcde
 	<h2>regexp</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>string manipulation operation</dd>
+		<dd><a href="#string_manipulation_operation">string manipulation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>R regexp S</code> <code>regexp R S</code></dd>
 		<dt>See Also:</dt>
@@ -14047,9 +14061,9 @@ abcde
 	<h2>regexp_match</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>string manipulation operation</dd>
+		<dd><a href="#string_manipulation_operation">string manipulation operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>regexp_match R S [O]</code></dd>
 		<dt>See Also:</dt>
@@ -14099,7 +14113,7 @@ l</pre>
 	<h2>regexp_substitute</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>string manipulation operation</dd>
+		<dd><a href="#string_manipulation_operation">string manipulation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>regexp_substitute R S T [O]</code></dd>
 		<dt>See Also:</dt>
@@ -14150,7 +14164,7 @@ abcYYghi
 	<h2>registerdllfun</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>registerdllfun Nm Dllnm Path Restype Argtypes</code> <code>registerdllfun Nm</code></dd>
 		<dt>See Also:</dt>
@@ -14474,7 +14488,7 @@ INIGO</pre>
 	<h2>regular expression notation</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#regexp">regexp</a>, <a href="#regexp_match">regexp_match</a>, <a href="#regexp_substitute">regexp_substitute</a></dd>
 	</dl>
@@ -14541,7 +14555,7 @@ INIGO</pre>
 	<h2>repeat-loop</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>control structure</dd>
+		<dd><a href="#control_structure">control structure</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>REPEAT expression_sequence UNTIL conditional_expression ENDREPEAT</code></dd>
 		<dt>See Also:</dt>
@@ -14571,7 +14585,7 @@ INIGO</pre>
 	<h2>reserved words</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 	</dl>
 	<p>
 		A
@@ -14724,9 +14738,9 @@ INIGO</pre>
 	<h2>reshape</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reshaping operation</dd>
+		<dd><a href="#reshaping_operation">reshaping operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A reshape B</code> <code>reshape A B</code></dd>
 		<dt>See Also:</dt>
@@ -14804,7 +14818,7 @@ def
 	<h2>rest</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>rest A</code></dd>
 		<dt>See Also:</dt>
@@ -14852,7 +14866,7 @@ l</pre>
 	<h2>restart</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Restart</code></dd>
 		<dt>See Also:</dt>
@@ -14880,7 +14894,7 @@ l</pre>
 	<h2>resume</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>debugging command</dd>
+		<dd><a href="#debugging_command">debugging command</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>resume</code></dd>
 		<dt>See Also:</dt>
@@ -14930,7 +14944,7 @@ foo
 	<h2>reverse</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>data rearrangement operation</dd>
+		<dd><a href="#data_rearrangement_operation">data rearrangement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>reverse A</code></dd>
 		<dt>See Also:</dt>
@@ -14993,7 +15007,7 @@ ableM was I ere I saw elba
 	<h2>role</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#global_environment">global environment</a></dd>
 	</dl>
@@ -15026,9 +15040,9 @@ ableM was I ere I saw elba
 	<h2>rotate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>data rearrangement operation</dd>
+		<dd><a href="#data_rearrangement_operation">data rearrangement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A rotate B</code> <code>rotate A B</code></dd>
 		<dt>See Also:</dt>
@@ -15083,7 +15097,7 @@ ableM was I ere I saw elba
 	<h2>rows</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>rows A</code></dd>
 		<dt>See Also:</dt>
@@ -15135,7 +15149,7 @@ Jack Dawn Alice
 	<h2>save</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>save Wsname</code></dd>
 		<dt>See Also:</dt>
@@ -15179,7 +15193,7 @@ Jack Dawn Alice
 	<h2>scan</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>scan S</code></dd>
 		<dt>See Also:</dt>
@@ -15263,7 +15277,7 @@ Jack Dawn Alice
 	<h2>scope of a variable</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#local_environment">local environment</a>, <a href="#role">role</a></dd>
 	</dl>
@@ -15290,7 +15304,7 @@ Jack Dawn Alice
 	<h2>second</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>second A</code></dd>
 		<dt>See Also:</dt>
@@ -15331,7 +15345,7 @@ Jack Dawn Alice
 	<h2>see</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>see Defname</code></dd>
 		<dt>See Also:</dt>
@@ -15370,7 +15384,7 @@ foo IS first rest</pre>
 	<h2>seed</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>array generation operation</dd>
+		<dd><a href="#array_generation_operation">array generation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>seed Num</code></dd>
 		<dt>See Also:</dt>
@@ -15399,9 +15413,9 @@ foo IS first rest</pre>
 	<h2>seek</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>search operation</dd>
+		<dd><a href="#search_operation">search operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A seek B</code> <code>seek A B</code></dd>
 		<dt>See Also:</dt>
@@ -15474,7 +15488,7 @@ o 11</pre>
 	<h2>seeprimcalls</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>seeprimcalls Mode</code></dd>
 		<dt>See Also:</dt>
@@ -15505,7 +15519,7 @@ o</pre>
 	<h2>seeusercalls</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>seeusercalls Mode</code></dd>
 		<dt>See Also:</dt>
@@ -15536,7 +15550,7 @@ o</pre>
 	<h2>separator</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Separator</code></dd>
 		<dt>See Also:</dt>
@@ -15553,7 +15567,7 @@ o</pre>
 	<h2>set</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>set Sw</code></dd>
 		<dt>See Also:</dt>
@@ -15625,7 +15639,7 @@ o</pre>
 	<h2>setdeftrace</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>setdeftrace Defname Mode</code></dd>
 		<dt>See Also:</dt>
@@ -15679,7 +15693,7 @@ o</pre>
 	<h2>setformat</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>picture operation</dd>
+		<dd><a href="#picture_operation">picture operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>setformat String</code></dd>
 		<dt>See Also:</dt>
@@ -15778,7 +15792,7 @@ o</pre>
 	<h2>setinterrupts</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>setinterrupts Boolean</code></dd>
 		<dt>See Also:</dt>
@@ -15803,7 +15817,7 @@ o</pre>
 	<h2>setlogname</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>setlogname Filename</code></dd>
 		<dt>See Also:</dt>
@@ -15829,7 +15843,7 @@ o</pre>
 	<h2>setprofile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>profiling operation</dd>
+		<dd><a href="#profiling_operation">profiling operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>setprofile A</code></dd>
 		<dt>See Also:</dt>
@@ -15863,7 +15877,7 @@ o</pre>
 	<h2>setprompt</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>setprompt S</code></dd>
 		<dt>See Also:</dt>
@@ -15885,7 +15899,7 @@ qnial&gt;</pre>
 	<h2>settrigger</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>settrigger Switch</code></dd>
 		<dt>See Also:</dt>
@@ -15921,7 +15935,7 @@ l</pre>
 	<h2>setwidth</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>setwidth N</code></dd>
 		<dt>See Also:</dt>
@@ -15946,7 +15960,7 @@ l</pre>
 	<h2>shape</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>shape A</code></dd>
 		<dt>See Also:</dt>
@@ -15991,9 +16005,9 @@ l</pre>
 	<h2>simple</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>structure testing operation</dd>
+		<dd><a href="#structure_testing_operation">structure testing operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>simple A</code></dd>
 		<dt>See Also:</dt>
@@ -16043,9 +16057,9 @@ o</pre>
 	<h2>sin</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>sin A</code></dd>
 		<dt>See Also:</dt>
@@ -16101,7 +16115,7 @@ o</pre>
 	<h2>single</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>single A</code></dd>
 		<dt>See Also:</dt>
@@ -16155,9 +16169,9 @@ l</pre>
 	<h2>sinh</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>sinh A</code></dd>
 		<dt>See Also:</dt>
@@ -16212,7 +16226,7 @@ l</pre>
 	<h2>sketch</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>picture operation</dd>
+		<dd><a href="#picture_operation">picture operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>sketch A</code></dd>
 		<dt>See Also:</dt>
@@ -16256,7 +16270,7 @@ l</pre>
 	<h2>solitary</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>construction operation</dd>
+		<dd><a href="#construction_operation">construction operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>solitary A</code></dd>
 		<dt>See Also:</dt>
@@ -16306,7 +16320,7 @@ l</pre>
 	<h2>solve</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>linear algebra operation</dd>
+		<dd><a href="#linear_algebra_operation">linear algebra operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A solve B</code> <code>solve A B</code></dd>
 		<dt>See Also:</dt>
@@ -16406,7 +16420,7 @@ l</pre>
 	<h2>sort</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>sorting transformer</dd>
+		<dd><a href="#sorting_transformer">sorting transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>SORT f A</code></dd>
 		<dt>See Also:</dt>
@@ -16459,7 +16473,7 @@ in not order some words</pre>
 	<h2>sortup</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>sorting operation</dd>
+		<dd><a href="#sorting_operation">sorting operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>sortup A</code></dd>
 		<dt>See Also:</dt>
@@ -16495,7 +16509,7 @@ in not order some words</pre>
 	<h2>split</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nesting restructuring operation</dd>
+		<dd><a href="#nesting_restructuring_operation">nesting restructuring operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>I split A</code> <code>split I A</code></dd>
 		<dt>See Also:</dt>
@@ -16596,9 +16610,9 @@ in not order some words</pre>
 	<h2>sqrt</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>sqrt A</code></dd>
 		<dt>See Also:</dt>
@@ -16664,7 +16678,7 @@ in not order some words</pre>
 	<h2>standard definitions</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#clear_workspace">clear workspace</a></dd>
 	</dl>
@@ -16688,7 +16702,7 @@ in not order some words</pre>
 	<h2>status</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Status</code></dd>
 		<dt>See Also:</dt>
@@ -16753,7 +16767,7 @@ in not order some words</pre>
 	<h2>step</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>debugging command</dd>
+		<dd><a href="#debugging_command">debugging command</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>step</code></dd>
 		<dt>See Also:</dt>
@@ -16778,7 +16792,7 @@ in not order some words</pre>
 	<h2>stepin</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>debugging command</dd>
+		<dd><a href="#debugging_command">debugging command</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>stepin</code></dd>
 		<dt>See Also:</dt>
@@ -16798,7 +16812,7 @@ in not order some words</pre>
 	<h2>strand notation</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#bracket_comma_notation">bracket-comma notation</a></dd>
 	</dl>
@@ -16834,7 +16848,7 @@ in not order some words</pre>
 	<h2>string</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>string A</code></dd>
 		<dt>See Also:</dt>
@@ -16880,7 +16894,7 @@ in not order some words</pre>
 	<h2>string_split</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>string manipulation operation</dd>
+		<dd><a href="#string_manipulation_operation">string manipulation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>string_split C S [N]</code></dd>
 		<dt>See Also:</dt>
@@ -16918,7 +16932,7 @@ in not order some words</pre>
 	<h2>string_translate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>string manipulation operation</dd>
+		<dd><a href="#string_manipulation_operation">string manipulation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>string_translate C D S [O]</code></dd>
 		<dt>See Also:</dt>
@@ -16972,9 +16986,9 @@ bxbbbbbbbbbzbbb</pre>
 	<h2>sublist</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A sublist B</code> <code>sublist A B</code></dd>
 		<dt>See Also:</dt>
@@ -17032,7 +17046,7 @@ hlowrd</pre>
 	<h2>sum</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>multi pervasive, reductive</dd>
 		<dt>Usage:</dt>
@@ -17086,7 +17100,7 @@ hlowrd</pre>
 	<h2>symbols</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>symbols Sw</code></dd>
 		<dt>See Also:</dt>
@@ -17146,7 +17160,7 @@ hlowrd</pre>
 	<h2>synonym</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 	</dl>
 	<p>
 		A
@@ -17272,7 +17286,7 @@ hlowrd</pre>
 	<h2>system</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>System</code></dd>
 		<dt>See Also:</dt>
@@ -17292,9 +17306,9 @@ Windows</pre>
 	<h2>take</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary</dd>
+		<dd><a href="#binary">binary</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A take B</code> <code>take A B</code></dd>
 		<dt>See Also:</dt>
@@ -17406,7 +17420,7 @@ Able Baker
 	<h2>takeright</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A takeright B</code> <code>takeright A B</code></dd>
 		<dt>See Also:</dt>
@@ -17428,7 +17442,7 @@ Able Baker
 	<h2>tally</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>tally A</code></dd>
 		<dt>See Also:</dt>
@@ -17469,9 +17483,9 @@ Able Baker
 	<h2>tan</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>tan A</code></dd>
 		<dt>See Also:</dt>
@@ -17531,9 +17545,9 @@ Able Baker
 	<h2>tanh</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>scientific operation</dd>
+		<dd><a href="#scientific_operation">scientific operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>tanh A</code></dd>
 		<dt>See Also:</dt>
@@ -17593,7 +17607,7 @@ Able Baker
 	<h2>team</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>applicative transformer</dd>
+		<dd><a href="#applicative_transformer">applicative transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>TEAM f A</code></dd>
 		<dt>See Also:</dt>
@@ -17634,7 +17648,7 @@ Able Baker
 	<h2>tell</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>array generation operation</dd>
+		<dd><a href="#array_generation_operation">array generation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>tell A</code></dd>
 		<dt>See Also:</dt>
@@ -17686,7 +17700,7 @@ Able Baker
 	<h2>third</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>selection operation</dd>
+		<dd><a href="#selection_operation">selection operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>third A</code></dd>
 		<dt>See Also:</dt>
@@ -17729,7 +17743,7 @@ Able Baker
 	<h2>time</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Time</code></dd>
 		<dt>See Also:</dt>
@@ -17751,9 +17765,9 @@ Able Baker
 	<h2>times</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>arithmetic operation</dd>
+		<dd><a href="#arithmetic_operation">arithmetic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>binary pervasive</dd>
+		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A times B</code> <code>times A B</code></dd>
 		<dt>See Also:</dt>
@@ -17784,7 +17798,7 @@ Able Baker
 	<h2>timestamp</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Timestamp</code></dd>
 		<dt>See Also:</dt>
@@ -17809,7 +17823,7 @@ Mon Jan 27 14:07:37 1997</pre>
 	<h2>toend</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>debugging command</dd>
+		<dd><a href="#debugging_command">debugging command</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>toend</code></dd>
 		<dt>See Also:</dt>
@@ -17830,7 +17844,7 @@ Mon Jan 27 14:07:37 1997</pre>
 	<h2>tolower</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>tolower A</code></dd>
 		<dt>See Also:</dt>
@@ -17854,7 +17868,7 @@ statement in lower case</pre>
 	<h2>tonumber</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>tonumber A</code></dd>
 		<dt>See Also:</dt>
@@ -17893,7 +17907,7 @@ l
 	<h2>top level loop</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#toplevel">toplevel</a>, <a href="#loaddefs">loaddefs</a></dd>
 	</dl>
@@ -17924,7 +17938,7 @@ l
 	<h2>topic</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>topic Name</code></dd>
 		<dt>See Also:</dt>
@@ -17943,7 +17957,7 @@ l
 	<h2>toplevel</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Toplevel</code></dd>
 		<dt>See Also:</dt>
@@ -17969,7 +17983,7 @@ l
 	<h2>toraw</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>toraw A</code></dd>
 		<dt>See Also:</dt>
@@ -18005,7 +18019,7 @@ lollo</pre>
 	<h2>toupper</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>conversion operation</dd>
+		<dd><a href="#conversion_operation">conversion operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>toupper A</code></dd>
 		<dt>See Also:</dt>
@@ -18029,7 +18043,7 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>transformer</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>concept</dd>
+		<dd><a href="#concept">concept</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#expression">expression</a>, <a href="#operation">operation</a>, <a href="#definition">definition</a></dd>
 	</dl>
@@ -18060,7 +18074,7 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>transformer form</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#transformer">transformer</a>, <a href="#definition">definition</a></dd>
 	</dl>
@@ -18090,7 +18104,7 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>transpose</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>data rearrangement operation</dd>
+		<dd><a href="#data_rearrangement_operation">data rearrangement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>transpose A</code></dd>
 		<dt>See Also:</dt>
@@ -18153,7 +18167,7 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>trs</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Trs</code></dd>
 		<dt>See Also:</dt>
@@ -18177,7 +18191,7 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>true</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>True</code></dd>
 		<dt>See Also:</dt>
@@ -18211,7 +18225,7 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>twig</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>distributive transformer</dd>
+		<dd><a href="#distributive_transformer">distributive transformer</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>TWIG f A</code></dd>
 		<dt>See Also:</dt>
@@ -18298,9 +18312,9 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>type</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Property:</dt>
-		<dd>unary pervasive</dd>
+		<dd><a href="#unary_pervasive">unary pervasive</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>type A</code></dd>
 		<dt>See Also:</dt>
@@ -18362,7 +18376,7 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>unary pervasive</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>operation property</dd>
+		<dd><a href="#operation_property">operation property</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>f A</code></dd>
 		<dt>See Also:</dt>
@@ -18485,9 +18499,9 @@ A STATEMENT IN UPPER CASE</pre>
 	<h2>unequal</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>logic operation</dd>
+		<dd><a href="#logic_operation">logic operation</a></dd>
 		<dt>Property:</dt>
-		<dd>predicate</dd>
+		<dd><a href="#predicate">predicate</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>A unequal B</code> <code>A ~= B</code> <code>unequal A</code></dd>
 		<dt>See Also:</dt>
@@ -18519,7 +18533,7 @@ o</pre>
 	<h2>up</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>comparison operation</dd>
+		<dd><a href="#comparison_operation">comparison operation</a></dd>
 		<dt>Properties:</dt>
 		<dd>binary, predicate</dd>
 		<dt>Usage:</dt>
@@ -18621,7 +18635,7 @@ o</pre>
 	<h2>update</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>update Nm I A</code></dd>
 		<dt>See Also:</dt>
@@ -18657,7 +18671,7 @@ o</pre>
 	<h2>updateall</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>updateall Nm I A</code></dd>
 		<dt>See Also:</dt>
@@ -18694,7 +18708,7 @@ o</pre>
 	<h2>user primitives</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>&lt;defined for each primitive&gt;</code></dd>
 		<dt>See Also:</dt>
@@ -18717,7 +18731,7 @@ o</pre>
 	<h2>vacate</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reshaping operation</dd>
+		<dd><a href="#reshaping_operation">reshaping operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>vacate A</code></dd>
 		<dt>See Also:</dt>
@@ -18750,7 +18764,7 @@ vacate is OPERATION A ( 0 reshape A )</pre>
 	<h2>valence</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>measurement operation</dd>
+		<dd><a href="#measurement_operation">measurement operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>valence A</code></dd>
 		<dt>See Also:</dt>
@@ -18793,7 +18807,7 @@ vacate is OPERATION A ( 0 reshape A )</pre>
 	<h2>value</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>evaluation operation</dd>
+		<dd><a href="#evaluation_operation">evaluation operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>value Nm</code></dd>
 		<dt>See Also:</dt>
@@ -18827,7 +18841,7 @@ l</pre>
 	<h2>variable</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>syntax</dd>
+		<dd><a href="#syntax">syntax</a></dd>
 		<dt>See Also:</dt>
 		<dd><a href="#assign_expression">assign expression</a>, <a href="#local_environment">local environment</a>, <a href="#vars">vars</a>, <a href="#role">role</a>, <a href="#indexing">indexing</a>, <a href="#scope_of_a_variable">scope of a variable</a></dd>
 	</dl>
@@ -18880,7 +18894,7 @@ l</pre>
 	<h2>vars</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Vars</code></dd>
 		<dt>See Also:</dt>
@@ -18904,7 +18918,7 @@ l</pre>
 	<h2>version</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>constant expression</dd>
+		<dd><a href="#constant_expression">constant expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Version</code></dd>
 		<dt>See Also:</dt>
@@ -18924,7 +18938,7 @@ Q’Nial for Windows Version 6.2 June 5, 1997</pre>
 	<h2>void</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>reshaping operation</dd>
+		<dd><a href="#reshaping_operation">reshaping operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>void A</code></dd>
 		<dt>See Also:</dt>
@@ -18957,7 +18971,7 @@ void is OPERATION A ( 0 reshape solitary A )</pre>
 	<h2>watch</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system operation</dd>
+		<dd><a href="#system_operation">system operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>watch Var Expr</code></dd>
 		<dt>See Also:</dt>
@@ -19050,7 +19064,7 @@ abc
 	<h2>watchlist</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>system expression</dd>
+		<dd><a href="#system_expression">system expression</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>Watchlist</code></dd>
 		<dt>See Also:</dt>
@@ -19096,7 +19110,7 @@ abc
 	<h2>while-loop</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>control structure</dd>
+		<dd><a href="#control_structure">control structure</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>WHILE conditional expression DO expression sequence ENDWHILE</code></dd>
 		<dt>See Also:</dt>
@@ -19122,7 +19136,7 @@ abc
 	<h2>write</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>interactive input/output operation</dd>
+		<dd><a href="#interactive_input_output_operation">interactive input/output operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>write A</code></dd>
 		<dt>See Also:</dt>
@@ -19158,7 +19172,7 @@ abc
 	<h2>writearray</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nial direct access file operation</dd>
+		<dd><a href="#nial_direct_access_file_operation">nial direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>writearray F N A</code></dd>
 		<dt>See Also:</dt>
@@ -19213,7 +19227,7 @@ abc
 	<h2>writechars</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>interactive input/output operation</dd>
+		<dd><a href="#interactive_input_output_operation">interactive input/output operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>writechars S</code></dd>
 		<dt>See Also:</dt>
@@ -19238,7 +19252,7 @@ abc
 	<h2>writefield</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>host direct access file operation</dd>
+		<dd><a href="#host_direct_access_file_operation">host direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>writefield Filename Start Str</code></dd>
 		<dt>See Also:</dt>
@@ -19269,7 +19283,7 @@ abc
 	<h2>writefile</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>file operation</dd>
+		<dd><a href="#file_operation">file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>writefile N S</code> <code>writefile N S [Eolsw]</code></dd>
 		<dt>See Also:</dt>
@@ -19319,7 +19333,7 @@ abc
 	<h2>writerecord</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>nial direct access file operation</dd>
+		<dd><a href="#nial_direct_access_file_operation">nial direct access file operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>writerecord F N S</code></dd>
 		<dt>See Also:</dt>
@@ -19373,7 +19387,7 @@ abc
 	<h2>writescreen</h2>
 	<dl>
 		<dt>Class:</dt>
-		<dd>interactive input/output operation</dd>
+		<dd><a href="#interactive_input_output_operation">interactive input/output operation</a></dd>
 		<dt>Usage:</dt>
 		<dd><code>writescreen S</code></dd>
 		<dt>See Also:</dt>
