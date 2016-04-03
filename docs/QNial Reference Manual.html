@@ -100,7 +100,7 @@
 	</p>
 	<p>
 		It has not been extensively proofread, so patches are welcome.
-		As a reference, you sholud find the RTF file extracted from the original HLP file
+		As a reference, you should find the RTF file extracted from the original HLP file
 		in the same source directory containing this file.
 	</p>
 </div>
@@ -1727,7 +1727,7 @@ looo</pre>
 	</p>
 	<p>
 		There are six types of atoms in Nial. They are
-		<code>boolean</code>, integer, real, character, phrase
+		<code>boolean</code>, <code>integer</code>, <code>real</code>, <code>character</code>, <code>phrase</code>
 		and
 		<code>fault</code>.  The first three are
 		<strong>numeric</strong>
@@ -1832,13 +1832,13 @@ looo</pre>
 	<p>
 		An
 		<strong>assign-expression</strong>
-		assigns an array value to one or more variables at the time of evaluation of the assign expression.  The semantics of an assign expression is interpreted in two stages: when the expression is analyzed (parsed) and when it is executed.
+		assigns an array value to one or more variables at the time of evaluation of the assign-expression.  The semantics of an assign-expression is interpreted in two stages: when the expression is analyzed (parsed) and when it is executed.
 	</p>
 	<p>
 		During the parse of the assign-expression appearing in a block, each name on the variable list is sought in the local environment.  If the name exists in the local environment, the assignment affects the local association.  If a name does not exist in the local environment and no reference has been made to a nonlocal variable with the same name, a local variable is created in the block.  An assign-expression parsed in the global environment creates a global variable if a variable with that name does not already exist.
 	</p>
 	<p>
-		When an assign expression is executed, the expression on the right of the assignment symbol ( := ) is evaluated.  If the variable list on the left has only one name, the value of the expression is assigned to that variable.  That is, the value is associated with that name.
+		When an assign-expression is executed, the expression on the right of the assignment symbol ( := ) is evaluated.  If the variable list on the left has only one name, the value of the expression is assigned to that variable.  That is, the value is associated with that name.
 	</p>
 	<p>
 		If the variable list has several names, the items of the value are assigned to the variables in the order in which they appear.  If the number of items does not match the number of variables, the fault ?assignment is returned as the value of the assign-expression.  Otherwise, the value of the assign-expression is the value of the expression on the right.
@@ -1847,7 +1847,7 @@ looo</pre>
 		When an indexed-variable is used on the left in an assign-expression, the parts of the array associated with the variable at the locations specified by the index are replaced by the values of the expression on the right.
 	</p>
 	<p>
-		If the index expression for an indexed-variable assignment specifies a number of locations (at-all or slice indexing), there are two cases: if the value on the right is a single, the item of the single is placed in each location; otherwise, the value on the right must have the same number of items as the index expression indicates and the corresponding locations are updated with the items of the array value.
+		If the index-expression for an indexed-variable assignment specifies a number of locations (at-all or slice indexing), there are two cases: if the value on the right is a single, the item of the single is placed in each location; otherwise, the value on the right must have the same number of items as the index expression indicates and the corresponding locations are updated with the items of the array value.
 	</p>
 </section>
 
@@ -1865,7 +1865,7 @@ looo</pre>
 		An
 		<strong>atlas</strong>
 		is an operation made up of a list of component operations.  The result of applying an atlas is a list of the same length as the atlas.  Each operation in the atlas is applied in turn to the argument resulting in an array value that becomes the item of the result list in the corresponding position.  An atlas is used by the transformers
-		<code>FORK, INNER</code>
+		<code>FORK</code>, <code>INNER</code>
 		and
 		<code>TEAM</code>.
 	</p>
@@ -1961,9 +1961,9 @@ o</pre>
 		<dd><a href="#binary_pervasive">binary pervasive</a></dd>
 	</dl>
 	<p>
-		An operation is said to
+		An operation is said to be 
 		<code>binary</code>
-		if it must have exactly two items in its argument. Many of the built-in operations of Nial are binary. They can be used in both an infix and prefix manner.  If a binary operation
+		if it must have exactly two items in its argument. Many of the built-in operations of Nial are binary. They can be used in both an infix and a prefix manner. If a binary operation
 		<code>f</code>
 		is used in infix syntax then the arguments on each side of
 		<code>f</code>
@@ -2062,7 +2062,7 @@ l</pre>
 		</tr>
 		<tr>
 			<td>mod</td>
-			<td>remainder on division of integers</td>
+			<td>remainder of division of integers</td>
 		</tr>
 		<tr>
 			<td>plus</td>
@@ -2223,7 +2223,7 @@ l</pre>
 		<code>?noexpr</code>
 		is used for the value of the missing item. The notation denotes the
 		<code>Null</code>
-		if their are no items, and a solitary if there is only one item.
+		if there are no items, and a solitary if there is only one item.
 	</p>
 	<pre>
      [2,3 4,5]
@@ -2273,7 +2273,7 @@ l
 		can also be used to view any of the definitions in the environment.
 	</p>
 	<p>
-		The debugging capability allows one to step forward in expression sequences using commands
+		The debugging capability allows you to step forward in expression sequences using commands
 		<code>step</code>, stepin, next
 		or
 		<code>toend</code>
@@ -2325,7 +2325,7 @@ foo
 		<code>Return</code>
 		is pressed at the prompt the expression
 		<code>A</code>
-		is evaluated and 3 is displayed followed by another prompt.
+		is evaluated and 3 is displayed, followed by another prompt.
 	</p>
 </section>
 
