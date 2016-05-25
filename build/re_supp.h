@@ -95,7 +95,7 @@ class Range {
     len--;
   }
 
-  friend      ostream & operator << (ostream & os, const Range & r) {
+  friend      std::ostream & operator << (std::ostream & os, const Range & r) {
     os << r.st << " - " << r.en << " (" << ((r.en - r.st) + 1) << ")";
     return os;
   }
@@ -261,7 +261,7 @@ class Regexp {
   }
 #endif
 
-  Range       Regexp::getgroup(int n) const
+  Range       getgroup(int n) const
   {
     assert(n < NSUBEXP);
     /* cout << "!(int) *repat->startp[n]:" <<  ((int) *(repat->startp[n])) <<

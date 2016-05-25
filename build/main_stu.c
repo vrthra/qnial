@@ -382,10 +382,10 @@ main(int argc, char *memin[])
                                 NC_EXPANSION, expansion));
   if (loadsw)
     CheckErr(NC_SetSessionSetting(sessionSettings,
-                                  NC_INITIAL_WORKSPACE, (int) inloadfnm));
+                                  NC_INITIAL_WORKSPACE, inloadfnm));
   if (defssw)
     CheckErr(NC_SetSessionSetting(sessionSettings,
-                                  NC_INITIAL_DEFS, (int) indefsfnm));
+                                  NC_INITIAL_DEFS, indefsfnm));
 
   CheckErr(NC_SetSessionSetting(sessionSettings,
                                 NC_QUIET, quiet));

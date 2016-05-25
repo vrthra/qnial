@@ -397,7 +397,7 @@ VarString::VarString(char c)
 }
 
 
-INLINE      ostream & operator << (ostream & os, const VarString & arr) {
+INLINE      std::ostream & operator << (std::ostream & os, const VarString & arr) {
 #ifdef TEST
   os << "(" << arr.length() << ")" << (const char *) arr;
 #else

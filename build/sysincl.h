@@ -165,10 +165,10 @@ SOCKETLIB - gets additional system libraries needed by sockets.c
 #include <sys/types.h>
 #include <pwd.h>
 #include <fcntl.h>
-#ifdef SOLARIS2
+
 #include <shadow.h>
 #include <crypt.h>
-#endif
+
 #include <netdb.h>
 #include <errno.h>
 #endif

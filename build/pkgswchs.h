@@ -14,7 +14,10 @@
 #define COMMAND
 #define TIMEHOOK
 #define DIRECTIO
+#define REGEXP
 #define PROFILE
 #define POPEN
 #define GETENV
 #define CMDLINE
+#define PROCESS_CONTROL
+#define SOCKETS

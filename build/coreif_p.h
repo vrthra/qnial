@@ -186,7 +186,7 @@ _EXTERN_ int _EXPORT_ NC_StopNial(void);
 _EXTERN_ long _EXPORT_ NC_CreateSessionSettings(void);
 _EXTERN_ int _EXPORT_
 NC_SetSessionSetting(long ioSettings,
-                     int inFeature, int inValue);
+                     int inFeature, long *inValue);
 _EXTERN_ int _EXPORT_
 NC_GetSessionSetting(long ioSettings,
                      int inFeature, int *inValue);

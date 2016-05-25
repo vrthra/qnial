@@ -669,7 +669,7 @@ NC_CreateSessionSettings(void)
 */
 
 int         _EXPORT_
-NC_SetSessionSetting(long ioSettings, int inFeature, int inValue)
+NC_SetSessionSetting(long ioSettings, int inFeature, long* inValue)
 {
   int         len;
 

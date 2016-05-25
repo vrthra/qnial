@@ -54,8 +54,8 @@ VERSION=
 
 #if LINUX & gcc turn these on
 
-CCC= g++
-CC= gcc
+CCC= g++ -g
+CC= gcc -g
 WFLAG= -Wall
 CSFLAG= -pipe
 SYSFLAG= -DLINUX -DUNIXSYS 
@@ -147,7 +147,7 @@ DEBUG_LIB=
 #SOCKLIB= -lsocket -lnsl
 #SOCKLIB=
 
-LIBS= -lm -ltermcap $(DEBUG_LIB) $(SOCKLIB) 
+LIBS= -lstdc++ -lcrypt -lm -lncurses $(DEBUG_LIB) $(SOCKLIB)
 
 
 # The Actual CFLAGS line
@@ -170,7 +170,7 @@ COREOBJS=	absmach.o arith.o atops.o \
 	trig.o trs.o \
 	userops.o unixif.o utils.o \
 	wsmanage.o \
-	fileio.o sockets.o process.o 
+	fileio.o sockets.o process.o
 	
 
 REGEXPOBJS= re_core.o re_main.o re_class.o regexp.o
